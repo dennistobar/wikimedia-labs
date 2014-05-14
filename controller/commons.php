@@ -22,8 +22,18 @@ class commons {
             $cat = $f3->get('POST.category');
         }
 
+        $cat_search = str_replace(" ", "_", $cat);
+
         $db = new \helper\database($f3, 'commonswiki', 'commonswiki');
-        var_dump($db->exec('select img_user_text user, count(1) number from page, image, categorylinks where page_title = img_name and cl_from = page_id and cl_to = ? and page_namespace = 6 group by 1 order by 2 DESC', $cat));
+        $res = $db->exec('select img_user_text user, count(1) number from page, image, categorylinks where page_title = img_name and cl_from = page_id and cl_to = ? and page_namespace = 6 group by 1 order by 2 DESC', $cat_search);
+
+        $f3->set('category', $cat);
+        $f3->set('category_search', $cat_search);
+        $f3->set('rows', $res);
+
+        $f3->set('title', 'Commons Tools');
+        $f3->set('output', 'commons/users.html');
+
     }
 
 }
