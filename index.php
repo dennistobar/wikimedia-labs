@@ -18,8 +18,8 @@ $f3->route('GET /test', function(){
     echo 'a';
 });
 
-$f3->route('GET /superzerocool/c', 'controller\commons::users_category');
-$f3->route('GET /superzerocool/commons/@cat', 'controller\commons::users_category');
+$f3->route('GET /superzerocool/commons', 'controller\commons::index');
+$f3->route('GET /superzerocool/commons/users/@cat', 'controller\commons::users_category');
 
 $f3->run();
 
