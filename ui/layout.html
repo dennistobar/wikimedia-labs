@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ @title }}</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="{{@BASE}}/css/kube.min.css" />
+    <link rel="stylesheet" href="{{@BASE}}/css/site.css" />
+</head>
+<body>
+    <div class="units-row">
+        <div class="unit-80 unit-centered units-padding">
+            My Tools | <a href="{{@BASE}}/commons">Commons</a> 
+        </div>
+    </div>
+    <div class="units-row">
+        <div class="unit-70 units-padding unit-centered">
+            <include href="{{ @output }}" />
+        </div>
+    </div>
+    <div class="units-row">
+        <div class="unit-80 unit-centered units-padding">
+            @dennistobar / github.com/dennistobar
+        </div>
+    </div>
+</body>
+</html>
