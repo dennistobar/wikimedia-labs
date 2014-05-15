@@ -27,7 +27,7 @@ class commons {
 
         $db = new \helper\database($f3, 'commonswiki', 'commonswiki');
         $res = $db->exec('
-            select img_user_text as user, count(distinct img_name) as number
+            select ifnull(oi_user_text, img_user_text) as user, count(distinct img_name) as number
             from page, image 
             left join oldimage o1
                 on oi_name = img_name
