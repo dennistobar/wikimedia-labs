@@ -12,12 +12,13 @@
     		<td>{{@i + 1}}</td>    		
     		<td>{{ @row[img_timestamp] }}</td>
     		<td>
+			<a href="https://commons.wikimedia.org/wiki/File:{{@row[img_name]|raw}}" target="_blank">
     			<img src="https://commons.wikimedia.org/w/thumb.php?f={{ @row[img_name] }}&amp;w=300" />
-    			<em>See on <a href="https.//commons.wikimedia.org/wiki/File:{{urlencode(@row[img_name])}}" target="_blank">Wikimedia Commons</a></em>
+			</a>
+    			<em>See on <a href="https://commons.wikimedia.org/wiki/File:{{@row[img_name]|raw}}" target="_blank">Wikimedia Commons</a></em>
     		</td>
 			<td>
 				<ul>
-					<li>Name: {{@row[img_name]}}</li>
 					<li>Size: {{ round(@row[img_size]/1024/1024, 4) }} Mb</li>
 					<li>Dimensions: {{@row[img_width]}}x{{@row[img_height]}}</li>
 				</ul>
