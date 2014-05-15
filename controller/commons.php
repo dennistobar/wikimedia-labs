@@ -16,8 +16,11 @@ class commons {
         if ($f3->exists('PARAMS.cat') === true){
             $cat = $f3->get('PARAMS.cat');
         }
-        elseif($f3->get('VERB') === 'POST'){
-            $f3->reroute('/superzerocool/commons/'.$f3->get('POST.category'));
+        if ($f3->exists('PARAMS.user') === true){
+            $user = $f3->get('PARAMS.user');
+        }
+        if($f3->get('VERB') === 'POST'){
+            $f3->reroute('/superzerocool/commons/users/'.$f3->get('POST.category'));
         }
 
         $cat_search = str_replace(" ", "_", $cat);
@@ -31,6 +34,34 @@ class commons {
 
         $f3->set('title', 'Commons Tools');
         $f3->set('output', 'commons/users.html');
+        echo \Template::instance()->render('layout.html');
+    }
+
+    public static function users_category_detail($f3){
+        $cat = null;
+        $user = null;
+        if ($f3->exists('PARAMS.cat') === true){
+            $cat = $f3->get('PARAMS.cat');
+        }
+        if ($f3->exists('PARAMS.user') === true){
+            $user = $f3->get('PARAMS.user');
+        }
+        if($f3->get('VERB') === 'POST'){
+            $f3->reroute('/superzerocool/commons/users/'.$f3->get('POST.category'));
+        }
+
+        $cat_search = str_replace(" ", "_", $cat);
+
+        $db = new \helper\database($f3, 'commonswiki', 'commonswiki');
+        $res = $db->exec('select img_user_text user, img_name, img_size, img_metadata from page, image, categorylinks where page_title = img_name and cl_from = page_id and cl_to = ? and img_user_text = ifnull(?, img_user_text) and page_namespace = 6 order by 2 DESC;', $cat_search, $user);
+
+        $f3->set('category', $cat);
+        $f3->set('category_search', $cat_search);
+        $f3->set('user', $user);
+        $f3->set('rows', $res);
+
+        $f3->set('title', 'Commons Tools');
+        $f3->set('output', 'commons/details_users.html');
         echo \Template::instance()->render('layout.html');
     }
 
