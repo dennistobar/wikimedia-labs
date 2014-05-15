@@ -9,7 +9,7 @@
 	<tbody>
 	<repeat group="{{ @rows }}" value="{{ @row }}">
     	<tr>
-    		<td><a href="{{@PATH}}/{{ @row['user'] }}">{{ @row['user'] }}</a></td>
+    		<td><a href="{{@PATH}}/{{ @row['user'] | url }}">{{ @row['user'] }}</a></td>
     		<td>{{ @row['number'] }}</td>
     	</tr>
 	</repeat>
