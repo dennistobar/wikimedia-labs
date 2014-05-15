@@ -53,7 +53,7 @@ class commons {
         $cat_search = str_replace(" ", "_", $cat);
 
         $db = new \helper\database($f3, 'commonswiki', 'commonswiki');
-        $res = $db->exec('select img_user_text user, img_name, img_size, img_metadata from page, image, categorylinks where page_title = img_name and cl_from = page_id and cl_to = ? and img_user_text = ifnull(?, img_user_text) and page_namespace = 6 order by 2 DESC;', $cat_search, $user);
+        $res = $db->exec('select img_user_text user, img_name, img_size, img_metadata from page, image, categorylinks where page_title = img_name and cl_from = page_id and cl_to = ? and img_user_text = ifnull(?, img_user_text) and page_namespace = 6 order by 2 DESC;', array($cat_search, $user));
 
         $f3->set('category', $cat);
         $f3->set('category_search', $cat_search);
