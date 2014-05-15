@@ -26,7 +26,20 @@ class commons {
         $cat_search = str_replace(" ", "_", $cat);
 
         $db = new \helper\database($f3, 'commonswiki', 'commonswiki');
-        $res = $db->exec('select img_user_text user, count(1) number from page, image, categorylinks where page_title = img_name and cl_from = page_id and cl_to = ? and page_namespace = 6 group by 1 order by 2 DESC', $cat_search);
+        $res = $db->exec('
+            select img_user_text as user, count(distinct img_name) as number
+            from page, image 
+            left join oldimage o1
+                on oi_name = img_name
+                and oi_timestamp = (select min(o2.oi_timestamp) from oldimage o2 where o1.oi_name = o2.oi_name)
+            , categorylinks 
+            where page_title = img_name 
+                and cl_from = page_id 
+                and cl_to = ?
+                and page_namespace = 6 
+            group by 1
+            order by 2 DESC'
+            , $cat_search);
 
         $f3->set('category', $cat);
         $f3->set('category_search', $cat_search);
@@ -53,7 +66,21 @@ class commons {
         $cat_search = str_replace(" ", "_", $cat);
 
         $db = new \helper\database($f3, 'commonswiki', 'commonswiki');
-        $res = $db->exec('select img_user_text user, img_name, img_size, img_metadata, img_timestamp, img_width, img_height from page, image, categorylinks where page_title = img_name and cl_from = page_id and cl_to = ? and img_user_text = ifnull(?, img_user_text) and page_namespace = 6 order by 2 DESC;', array(1=>$cat_search, 2=>$user));
+        $res = $db->exec('
+            select img_name, img_size, img_metadata, img_timestamp, img_width, img_height, 
+                (select count(distinct oi_timestamp) from oldimage where oi_name = img_name) as revs
+            from page, image 
+            left join oldimage o1
+                on oi_name = img_name
+                and oi_timestamp = (select min(o2.oi_timestamp) from oldimage o2 where o1.oi_name = o2.oi_name)
+            , categorylinks 
+            where page_title = img_name 
+                and cl_from = page_id 
+                and cl_to = ?
+                and page_namespace = 6 
+                and ifnull(oi_user_text , img_user_text) = ?
+                order by img_timestamp DESC;'
+                , array(1=>$cat_search, 2=>$user));
 
         $f3->set('category', $cat);
         $f3->set('category_search', $cat_search);
