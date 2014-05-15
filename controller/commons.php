@@ -12,14 +12,12 @@ class commons {
 
     public static function users_category($f3){
         $cat = null;
+        $user = null;
         if ($f3->exists('PARAMS.cat') === true){
             $cat = $f3->get('PARAMS.cat');
         }
-        elseif($f3->get('VERB') === 'GET'){
-            $f3->reroute('/superzerocool/commons');
-        }
         elseif($f3->get('VERB') === 'POST'){
-            $cat = $f3->get('POST.category');
+            $f3->reroute('/superzerocool/commons/'.$f3->get('POST.category'));
         }
 
         $cat_search = str_replace(" ", "_", $cat);
@@ -33,7 +31,7 @@ class commons {
 
         $f3->set('title', 'Commons Tools');
         $f3->set('output', 'commons/users.html');
-
+        echo \Template::instance()->render('layout.html');
     }
 
 }
