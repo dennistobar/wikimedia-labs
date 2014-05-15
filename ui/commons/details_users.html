@@ -3,14 +3,24 @@
 	<thead>
 		<th>#</th>
 		<th>Thumbnail</th>
+		<th>Name</th>
 		<th>Data</th>
 	</thead>
 	<tbody>
-	<repeat group="{{ @rows }}" value="{{ @row }}" key={{ @i }}>
+	<repeat group="{{ @rows }}" value="{{ @row }}" key="{{ @i }}">
     	<tr>
     		<td>{{@i + 1}}</td>
-    		<td><img src="https://commons.wikimedia.org/w/thumb.php?f={{ @row[img_name] }}&amp;w=300"></td>
-			<td>{{ round(@row[img_size]/1024/1024, 4) }} Mb</td>
+    		<td>{{@row[img_name]}}</td>
+    		<td>
+    			<img src="https://commons.wikimedia.org/w/thumb.php?f={{ @row[img_name] }}&amp;w=300" />
+    			<em>See on <a href="https.//commons.wikimedia.org/wiki/File:{{urlencode(@row[img_name])}}" target="_blank">Wikimedia Commons</a></em>
+    		</td>
+			<td>
+				<ul>
+					<li>Size: {{ round(@row[img_size]/1024/1024, 4) }} Mb</li>
+					<li>Dimensions: {{@row[img_width]}}x{{@row[img_height]}}</li>
+				</ul>
+			</td>
     	</tr>
 	</repeat>
 	</tbody>
