@@ -47,7 +47,7 @@ class commons {
 
         $f3->set('title', 'Commons Tools');
         $f3->set('output', 'commons/users.html');
-        echo \Template::instance()->render('layout.html');
+        echo \helper\ExtTemplate::instance()->render('layout.html');
     }
 
     public static function users_category_detail($f3){
