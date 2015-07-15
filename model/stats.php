@@ -7,7 +7,7 @@ class stats{
 
     private $category;
 
-    public function __constuct($category){
+    public function __construct($category){
         $this->category = $category;
     }
 
