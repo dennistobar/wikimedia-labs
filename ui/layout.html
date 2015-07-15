@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{ @title }}</title>
-
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -12,7 +10,12 @@
 <body>
     <div class="units-row">
         <div class="unit-80 unit-centered units-padding">
-            My Tools | <a href="{{@BASE}}{{@RUTA}}/commons">Commons</a> 
+            <nav class="navbar nav-fullwidth">
+        <ul>
+            <li><a href="{{@BASE}}{{@RUTA}}/commons">Commons</a></li>
+            <li><a href="{{@BASE}}{{@RUTA}}/stats">Wiki Loves (Whatever)</a></li>
+        </ul>
+        </nav>
         </div>
     </div>
     <div class="units-row">
@@ -22,8 +25,9 @@
     </div>
     <div class="units-row">
         <div class="unit-80 unit-centered units-padding">
-            @dennistobar / github.com/dennistobar
+            <a href="https://twitter.com/dennistobar">@dennistobar</a> / <a href="https://github.com/dennistobar">github.com/dennistobar</a>
         </div>
     </div>
+    
 </body>
 </html>
