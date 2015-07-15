@@ -12,7 +12,7 @@ class stats {
 
     public static function process($f3){
 
-        $category = str_replace(" ", "-", $f3->get('POST.category'));
+        $category = str_replace(" ", "_", $f3->get('POST.category'));
         $stats = new \model\stats($category);
 
         $f3->set('totals', $stats->getTotals());
