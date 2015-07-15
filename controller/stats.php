@@ -12,9 +12,11 @@ class stats {
 
     public static function process($f3){
 
-        $stats = new \model\stats($f3->get('POST.category'));
+        $category = str_replace(" ", "-", $f3->get('POST.category'))
+        $stats = new \model\stats($category);
 
         $f3->set('totals', $stats->getTotals());
+        $f3->set('users', $stats->getUsers($f3->get('POST.initial'), $f3->get('POST.final')));
 
         $f3->set('title', 'Wiki Loves (Whatever)');
         $f3->set('output', 'stats/dashboard.html');
