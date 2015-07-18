@@ -26,7 +26,7 @@ class stats{
         $db = new \helper\database(\F3::instance(), 'commonswiki', 'commonswiki');
         $res = $db->exec("
             select user_name, user_registration, 
-    (case when user_registration between :initial and :final then 1 else 0 end) newbie,
+    (case when user_registration between :ini and :fin then 1 else 0 end) newbie,
     count(1) uploads
 from categorylinks 
 join page pg on page_id = cl_from 
