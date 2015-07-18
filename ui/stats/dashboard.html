@@ -1,2 +1,6 @@
+<h2>Metrics</h2>
 {{ var_dump(@totals) }}
-{{ var_dump(@users) }}
+Commons category: {{ \F3::get('POST.category') }}
+<strong>Counted users</strong>: {{ @totals.users }}
+<strong>Counted images</strong>: {{ @totals.uploads }}
+<strong>Newbies</strong>: {{ @totals.newbies }} ({{ @totals.rate_newbies * 100 }} % are newbies)
