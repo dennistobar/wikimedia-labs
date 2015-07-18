@@ -18,7 +18,10 @@ class stats{
         $tmp = [
             'users' => count(array_column($data, 'user_name')),
             'uploads' => array_sum(array_column($data, 'uploads')),
+            'newbies' => array_sum(array_column($data, 'newbie')),
+            'rate' => $tmp['newbies']/$tmp['users']
             ];
+        return $tmp;
 
     }
 
