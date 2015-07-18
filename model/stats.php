@@ -5,11 +5,12 @@ namespace model;
 class stats{
 
 
-    private $params;
+    private $params, $cost;
 
 
     public function __construct($category, $initial, $final, $cost){
-        $this->params = ['cat' => $category, 'ini' => $initial, 'fin' => $final, 'cost' => $cost];
+        $this->params = ['cat' => $category, 'ini' => $initial, 'fin' => $final];
+        $this->cost = $cost;
     }
 
     public function getTotals(){
