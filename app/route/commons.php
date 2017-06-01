@@ -12,7 +12,8 @@ class commons
     public function category_redirect(\Base $fat)
     {
         $cat = str_replace(" ", "_", $fat->get('POST.category'));
-        $fat->reroute('/commons/category/'.$cat);
+        $base = sprintf("%s://%s%s", $fat->get('SCHEME'), $fat->get('HOST'), $fat->get('BASE'));
+        $fat->reroute($base.'/commons/category/'.$cat);
         return $fat;
     }
 
