@@ -9,7 +9,7 @@
 	<tbody>
 	<repeat group="{{ @rows }}" value="{{ @row }}">
     	<tr>
-    		<td><a href="{{@BASE}}{{ @row['user'] | raw,url }}">{{ @row['user'] }}</a></td>
+    		<td><a href="{{@BASE}}/commons/users/{{@category}}/{{ @row['user'] | raw,url }}">{{ @row['user'] }}</a></td>
     		<td>{{ @row['number'] }}</td>
     	</tr>
 	</repeat>
