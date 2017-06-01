@@ -8,91 +8,41 @@ class commons
     {
         $fat->set('page.contents', 'commons/index.html');
     }
-    public function users_category($fat)
+
+    public function category_redirect(\Base $fat)
     {
-        $cat = null;
-        $user = null;
-        if ($fat->exists('PARAMS.cat') === true) {
-            $cat = $fat->get('PARAMS.cat');
-        }
-        if ($fat->exists('PARAMS.user') === true) {
-            $user = $fat->get('PARAMS.user');
-        }
-        if ($fat->get('VERB') === 'POST') {
-            $fat->reroute('/commons/users/'.$fat->get('POST.category'));
-        }
+        $cat = str_replace(" ", "_", $fat->get('POST.category'));
+        $fat->reroute('/commons/category/'.$cat);
+        return $fat;
+    }
 
-        $cat_search = str_replace(" ", "_", $cat);
-
-        $db = new \model\database($fat, 'commonswiki', 'commonswiki');
-        $res = $db->exec('
-            select ifnull(oi_user_text, img_user_text) as user, count(distinct img_name) as number
-            from page, image
-            left join oldimage o1
-                on oi_name = img_name
-                and oi_timestamp = (select min(o2.oi_timestamp) from oldimage o2 where o1.oi_name = o2.oi_name)
-            , categorylinks
-            where page_title = img_name
-                and cl_from = page_id
-                and cl_to = ?
-                and page_namespace = 6
-            group by 1
-            order by 2 DESC', $cat_search);
-
-        $fat->set('category', $cat);
-        $fat->set('category_search', $cat_search);
-        $fat->set('rows', $res);
-
+    public function category_search(\Base $fat)
+    {
+        $Category = \model\commons\category::load($fat->get('PARAMS.category'));
+        $users = $Category->users();
+        $fat->set('category', $Category->parameters());
+        $fat->set('rows', $users);
         $fat->set('page.contents', 'commons/users.html');
     }
 
-    public function users_category_detail($fat)
+    public function category_user_search(\Base $fat)
     {
-        $cat = null;
-        $user = null;
-        if ($fat->exists('PARAMS.cat') === true) {
-            $cat = $fat->get('PARAMS.cat');
-        }
-        if ($fat->exists('PARAMS.user') === true) {
-            $user = $fat->get('PARAMS.user');
-        }
-        if ($fat->get('VERB') === 'POST') {
-            $fat->reroute('/commons/users/'.$fat->get('POST.category'));
-        }
-
-        $cat_search = str_replace(" ", "_", $cat);
-
-        $db = new \model\database($fat, 'commonswiki', 'commonswiki');
-        $res = $db->exec('
-            select img_name, img_size, img_metadata, img_timestamp, img_width, img_height,
-                (select count(distinct oi_timestamp) from oldimage where oi_name = img_name) as revs
-            from page, image
-            left join oldimage o1
-                on oi_name = img_name
-                and oi_timestamp = (select min(o2.oi_timestamp) from oldimage o2 where o1.oi_name = o2.oi_name)
-            , categorylinks
-            where page_title = img_name
-                and cl_from = page_id
-                and cl_to = ?
-                and page_namespace = 6
-                and ifnull(oi_user_text , img_user_text) = ?
-                order by img_timestamp DESC;', array(1=>$cat_search, 2=>$user));
-
-        $fat->set('category', $cat);
-        $fat->set('category_search', $cat_search);
-        $fat->set('user', $user);
-        $fat->set('rows', $res);
+        $Category = \model\commons\category::load($fat->get('PARAMS.category'));
+        $users = $Category->details_user($fat->get('PARAMS.user'));
+        $fat->set('category', $Category->parameters());
+        $fat->set('rows', $users);
         $fat->set('page.contents', 'commons/details_users.html');
     }
 
-    public function beforeroue(\Base $fat){
+    public function beforeroute(\Base $fat)
+    {
         $fat->set('page.title', 'Commons Tools');
     }
 
-    public function afterroute(\Base $fat){
-        if($fat->get('AJAX') === false){
+    public function afterroute(\Base $fat)
+    {
+        if ($fat->get('AJAX') === false) {
             echo \Template::instance()->render('layout.html');
         }
     }
-
 }
