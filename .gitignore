@@ -1,5 +1,7 @@
 replica.my.cnf
-fatfree.my.cnf
 .htaccess
 tmp/
 *.ini
+vendor/
+*.lock
+*.phar
