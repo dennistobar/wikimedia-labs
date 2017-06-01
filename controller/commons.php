@@ -20,7 +20,7 @@ class commons {
             $user = $f3->get('PARAMS.user');
         }
         if($f3->get('VERB') === 'POST'){
-            $f3->reroute('/superzerocool/commons/users/'.$f3->get('POST.category'));
+            $f3->reroute('/commons/users/'.$f3->get('POST.category'));
         }
 
         $cat_search = str_replace(" ", "_", $cat);
@@ -28,15 +28,15 @@ class commons {
         $db = new \helper\database($f3, 'commonswiki', 'commonswiki');
         $res = $db->exec('
             select ifnull(oi_user_text, img_user_text) as user, count(distinct img_name) as number
-            from page, image 
+            from page, image
             left join oldimage o1
                 on oi_name = img_name
                 and oi_timestamp = (select min(o2.oi_timestamp) from oldimage o2 where o1.oi_name = o2.oi_name)
-            , categorylinks 
-            where page_title = img_name 
-                and cl_from = page_id 
+            , categorylinks
+            where page_title = img_name
+                and cl_from = page_id
                 and cl_to = ?
-                and page_namespace = 6 
+                and page_namespace = 6
             group by 1
             order by 2 DESC'
             , $cat_search);
@@ -60,24 +60,24 @@ class commons {
             $user = $f3->get('PARAMS.user');
         }
         if($f3->get('VERB') === 'POST'){
-            $f3->reroute('/superzerocool/commons/users/'.$f3->get('POST.category'));
+            $f3->reroute('/commons/users/'.$f3->get('POST.category'));
         }
 
         $cat_search = str_replace(" ", "_", $cat);
 
         $db = new \helper\database($f3, 'commonswiki', 'commonswiki');
         $res = $db->exec('
-            select img_name, img_size, img_metadata, img_timestamp, img_width, img_height, 
+            select img_name, img_size, img_metadata, img_timestamp, img_width, img_height,
                 (select count(distinct oi_timestamp) from oldimage where oi_name = img_name) as revs
-            from page, image 
+            from page, image
             left join oldimage o1
                 on oi_name = img_name
                 and oi_timestamp = (select min(o2.oi_timestamp) from oldimage o2 where o1.oi_name = o2.oi_name)
-            , categorylinks 
-            where page_title = img_name 
-                and cl_from = page_id 
+            , categorylinks
+            where page_title = img_name
+                and cl_from = page_id
                 and cl_to = ?
-                and page_namespace = 6 
+                and page_namespace = 6
                 and ifnull(oi_user_text , img_user_text) = ?
                 order by img_timestamp DESC;'
                 , array(1=>$cat_search, 2=>$user));
