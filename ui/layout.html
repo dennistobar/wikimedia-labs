@@ -1,37 +1,47 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/kube/3.0.2/css/kube.min.css" />
-    <link rel="stylesheet" href="{{@BASE}}/css/site.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.2/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+
 <body>
-    <div class="units-row">
-        <div class="unit-80 unit-centered units-padding">
-            <nav class="navbar nav-fullwidth">
-        <ul>
-            <li><a href="{{@BASE}}/commons">Commons</a></li>
-            <li><a href="{{@BASE}}/stats">Wiki Loves (Whatever)</a></li>
-        </ul>
-        </nav>
+    <section class="hero is-info">
+        <div class="hero-head">
+            <header class="nav">
+                <div class="container">
+                    <span class="nav-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    </span>
+                    <div class="nav-right nav-menu">
+                        <a class="nav-item" href="{{@BASE}}/commons">Commons</a>
+                        <a class="nav-item" href="{{@BASE}}/stats">Wiki Loves (X)</a>
+                    </div>
+                </div>
+            </header>
         </div>
-    </div>
-    <div class="units-row">
-        <div class="unit-70 units-padding unit-centered">
-            <include href="{{ @output }}" />
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">{{@page.title}}</h1>
+            </div>
         </div>
-    </div>
-    <div class="units-row">
-        <div class="unit-80 unit-centered units-padding">
+    </section>
+    <section class="section content">
+        <include if="{{@page.contents}}" href="{{@page.contents}}" />
+    </section>
+    <footer class="footer">
+        <div class="has-text-centered">
+            <p>Versión {{@system.git}}</p>
             <a href="https://twitter.com/dennistobar">@dennistobar</a> / <a href="https://github.com/dennistobar">github.com/dennistobar</a>
         </div>
-    </div>
+    </footer>
 
 </body>
+
 </html>

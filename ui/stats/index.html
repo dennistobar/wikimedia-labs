@@ -1,48 +1,50 @@
-<h2>Wiki Loves (Whatever)</h2>
+<h3 class="title">Wiki Loves (Whatever)</h3>
 <form method="post" action="./stats/process" class="forms">
-    <div class="unit-row">
-        <div class="units-row end">
-            <div class="unit-100">
-                <label>
-                    Your contest
-                    <div class="input-groups width-50">
-                        <span class="input-prepend">Category:</span>
-                        <input type="text" name="category" placeholder="ie: Chile, Wines, Images from some contest..." />
-                    </div>
-                    <span class="forms-desc">Without
-                        <strong>Category:</strong>
-                    </span>
-                </label>
-            </div>
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="label">Your contest</label>
         </div>
-        <div class="unit-row end">
-            <div class="unit-20">
-                Start date
-            </div>
-            <div class="unit-80">
-                <input type="date" name="initial" value="{{date('Y-m-d')}}" />
-            </div>
-        </div>
-        <div class="unit-row end">
-            <div class="unit-20">
-                Final date
-            </div>
-            <div class="unit-80">
-                <input type="date" name="final" value="{{date('Y-m-d')}}" />
+        <div class="field-body">
+            <div class="field is-expanded">
+                <div class="control">
+                    <input type="text" class="input" name="category" placeholder="ie: Chile, Wines, Images from some contest..." required="required" />
+                </div>
+                <p class="help">
+                    Without <strong>Category:</strong>
+                </p>
             </div>
         </div>
     </div>
-    <p>
-        <button class="btn btn-blue">Search</button>
-    </p>
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="label">Start date</label>
+        </div>
+        <div class="field-body">
+            <div class="field is-grouped">
+                <div class="control is-expanded">
+                    <input type="date" class="input" name="initial" value="{{date('Y-m-d')}}" />
+                </div>
+                <div class="field-label is-normal">
+                    <label class="label">End date</label>
+                </div>
+                <div class="field">
+                    <div class="control is-expanded">
+                        <input type="date" class="input" name="final" value="{{date('Y-m-d')}}" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="field is-horizontal">
+        <div class="field-label">
+            <!-- Left empty for spacing -->
+        </div>
+        <div class="field-body">
+            <div class="field">
+                <div class="control">
+                    <button class="button is-primary">Search</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </form>
-<script>
-    if (!Modernizr.inputtypes.date) {
-        $('input[type=date]')
-            .attr('type', 'text')
-            .datepicker({
-                // Consistent format with the HTML5 picker
-                dateFormat: 'yy-mm-dd'
-            });
-    }
-</script>

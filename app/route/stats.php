@@ -6,8 +6,8 @@ class stats
 {
     public function index($f3)
     {
-        $f3->set('title', 'Wiki Loves (Whatever)');
-        $f3->set('output', 'stats/index.html');
+        $f3->set('page.title', 'Wiki Loves (Whatever)');
+        $f3->set('page.contents', 'stats/index.html');
         echo \Template::instance()->render('layout.html');
     }
 
@@ -19,8 +19,8 @@ class stats
         $f3->set('totals', $stats->getTotals());
         $f3->set('users', $stats->getUsers());
 
-        $f3->set('title', 'Wiki Loves (Whatever)');
-        $f3->set('output', 'stats/dashboard.html');
+        $f3->set('page.title', 'Wiki Loves (Whatever)');
+        $f3->set('page.contents', 'stats/dashboard.html');
         echo \Template::instance()->render('layout.html');
     }
 }

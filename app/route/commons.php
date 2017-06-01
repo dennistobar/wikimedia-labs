@@ -6,9 +6,7 @@ class commons
 {
     public function index(\Base $fat)
     {
-        $fat->set('title', 'Commons Tools');
-        $fat->set('output', 'commons/index.html');
-        echo \Template::instance()->render('layout.html');
+        $fat->set('page.contents', 'commons/index.html');
     }
     public function users_category($fat)
     {
@@ -45,9 +43,7 @@ class commons
         $fat->set('category_search', $cat_search);
         $fat->set('rows', $res);
 
-        $fat->set('title', 'Commons Tools');
-        $fat->set('output', 'commons/users.html');
-        echo \Template::instance()->render('layout.html');
+        $fat->set('page.contents', 'commons/users.html');
     }
 
     public function users_category_detail($fat)
@@ -86,9 +82,17 @@ class commons
         $fat->set('category_search', $cat_search);
         $fat->set('user', $user);
         $fat->set('rows', $res);
-
-        $fat->set('title', 'Commons Tools');
-        $fat->set('output', 'commons/details_users.html');
-        echo \Template::instance()->render('layout.html');
+        $fat->set('page.contents', 'commons/details_users.html');
     }
+
+    public function beforeroue(\Base $fat){
+        $fat->set('page.title', 'Commons Tools');
+    }
+
+    public function afterroute(\Base $fat){
+        if($fat->get('AJAX') === false){
+            echo \Template::instance()->render('layout.html');
+        }
+    }
+
 }
