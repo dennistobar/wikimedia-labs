@@ -41,8 +41,7 @@ class stats
     public function getUsers()
     {
         if (isset($this->list) === false) {
-            $db = new \model\database(\F3::instance(), 'commonswiki', 'commonswiki');
-            $res = $db->exec("
+            $qList = "
                 select user_name, user_registration,
                 (case when user_registration between :ini and :fin then 1 else 0 end) newbie,
                 count(1) uploads
@@ -53,8 +52,9 @@ class stats
                 where cl_to = :cat
                 and cl_type = 'file'
                 group by 1, 2, 3
-                order by 4 desc", $this->params, 3600);
-            $this->list = $res;
+                order by 4 desc";
+            $pList = $this->params;
+            $this->list = \model\database::instance('commonswiki', 'commonswiki')->exec($qList, $pList);
         }
         return $this->list;
     }
