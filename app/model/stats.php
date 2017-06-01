@@ -2,18 +2,20 @@
 
 namespace model;
 
-class stats{
+class stats
+{
+    private $params;
+    private $cost;
 
 
-    private $params, $cost;
-
-
-    public function __construct($category, $initial, $final, $cost){
+    public function __construct($category, $initial, $final, $cost)
+    {
         $this->params = ['cat' => $category, 'ini' => $initial, 'fin' => $final];
         $this->cost = $cost;
     }
 
-    public function getTotals(){
+    public function getTotals()
+    {
         $data = $this->getUsers();
         $tmp = [
         'users' => count(array_column($data, 'user_name')),
@@ -21,7 +23,9 @@ class stats{
         'newbies' => array_sum(array_column($data, 'newbie'))
         ];
         $tmp['rate_newbies'] = $tmp['newbies']/($tmp['users'] ?: 1);
-        $upl_newbie = array_filter($data, function($f){ return $f['newbie'] === '1'; });
+        $upl_newbie = array_filter($data, function ($f) {
+            return $f['newbie'] === '1';
+        });
         $tmp['newbie_uploads'] = array_sum(array_column($upl_newbie, 'uploads'));
         $tmp['rate_newbies_uploads'] = $tmp['newbie_uploads']/($tmp['uploads'] ?: 1);
         $tmp['percentile_25'] = self::getPercentile(25, array_column($data, 'uploads'));
@@ -34,8 +38,9 @@ class stats{
         return $tmp;
     }
 
-    public function getUsers(){
-        if(isset($this->list) === false){
+    public function getUsers()
+    {
+        if (isset($this->list) === false) {
             $db = new \model\database(\F3::instance(), 'commonswiki', 'commonswiki');
             $res = $db->exec("
                 select user_name, user_registration,
@@ -55,7 +60,8 @@ class stats{
     }
 
     /** http://stackoverflow.com/a/24049361 **/
-    public function getPercentile($percentile, $array){
+    public function getPercentile($percentile, $array)
+    {
         sort($array);
         $index = ($percentile/100) * count($array);
         $idx = ceil($index);
@@ -64,6 +70,4 @@ class stats{
             'count' => count(array_slice($array, 0, $idx > count($array) ? $idx -1 : $idx))
             ];
     }
-
-
 }
