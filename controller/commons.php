@@ -20,7 +20,7 @@ class commons {
             $user = $f3->get('PARAMS.user');
         }
         if($f3->get('VERB') === 'POST'){
-            $f3->reroute('./commons/users/'.$f3->get('POST.category'));
+            $f3->reroute('/commons/users/'.$f3->get('POST.category'));
         }
 
         $cat_search = str_replace(" ", "_", $cat);
@@ -60,7 +60,7 @@ class commons {
             $user = $f3->get('PARAMS.user');
         }
         if($f3->get('VERB') === 'POST'){
-            $f3->reroute('./commons/users/'.$f3->get('POST.category'));
+            $f3->reroute('/commons/users/'.$f3->get('POST.category'));
         }
 
         $cat_search = str_replace(" ", "_", $cat);
