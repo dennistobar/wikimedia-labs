@@ -1,15 +1,48 @@
 <h2>Wiki Loves (Whatever)</h2>
 <form method="post" action="./stats/process" class="forms">
-    <label>
-        Your contest
-        <div class="input-groups width-50">
-            <span class="input-prepend">Category:</span><input type="text" name="category" placeholder="ie: Chile, Wines, Images from some contest..."/>
+    <div class="unit-row">
+        <div class="units-row end">
+            <div class="unit-100">
+                <label>
+                    Your contest
+                    <div class="input-groups width-50">
+                        <span class="input-prepend">Category:</span>
+                        <input type="text" name="category" placeholder="ie: Chile, Wines, Images from some contest..." />
+                    </div>
+                    <span class="forms-desc">Without
+                        <strong>Category:</strong>
+                    </span>
+                </label>
+            </div>
         </div>
-        <span class="forms-desc">Without <strong>Category:</strong></span>
-    </label>
-    <input type="text" name="initial" value="20130831235959" />
-    <input type="text" name="final" value="20131001000000" />
+        <div class="unit-row end">
+            <div class="unit-20">
+                Start date
+            </div>
+            <div class="unit-80">
+                <input type="date" name="initial" value="{{date('Y-m-d')}}" />
+            </div>
+        </div>
+        <div class="unit-row end">
+            <div class="unit-20">
+                Final date
+            </div>
+            <div class="unit-80">
+                <input type="date" name="final" value="{{date('Y-m-d')}}" />
+            </div>
+        </div>
+    </div>
     <p>
         <button class="btn btn-blue">Search</button>
     </p>
 </form>
+<script>
+    if (!Modernizr.inputtypes.date) {
+        $('input[type=date]')
+            .attr('type', 'text')
+            .datepicker({
+                // Consistent format with the HTML5 picker
+                dateFormat: 'yy-mm-dd'
+            });
+    }
+</script>

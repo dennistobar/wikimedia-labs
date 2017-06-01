@@ -29,6 +29,8 @@ class stats{
         $tmp['percentile_75'] = self::getPercentile(75, array_column($data, 'uploads'));
         $tmp['percentile_90'] = self::getPercentile(90, array_column($data, 'uploads'));
         $tmp['percentile_99'] = self::getPercentile(99, array_column($data, 'uploads'));
+        $tmp['veterean'] = $tmp['users'] - $tmp['newbies'];
+        $tmp['veterean_uploads'] = $tmp['uploads'] - $tmp['newbie_uploads'];
         return $tmp;
     }
 
@@ -46,7 +48,7 @@ class stats{
                 where cl_to = :cat
                 and cl_type = 'file'
                 group by 1, 2, 3
-                order by 4 desc", $this->params);
+                order by 4 desc", $this->params, 3600);
             $this->list = $res;
         }
         return $this->list;
