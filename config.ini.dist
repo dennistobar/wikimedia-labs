@@ -1,0 +1,5 @@
+[globals]
+DEBUG=0
+UI=ui/
+TMP=tmp/
+AUTOLOAD=app/|controller/|model/|helper/

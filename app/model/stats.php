@@ -36,14 +36,14 @@ class stats{
 
     public function getUsers(){
         if(isset($this->list) === false){
-            $db = new \helper\database(\F3::instance(), 'commonswiki', 'commonswiki');
+            $db = new \model\database(\F3::instance(), 'commonswiki', 'commonswiki');
             $res = $db->exec("
-                select user_name, user_registration, 
+                select user_name, user_registration,
                 (case when user_registration between :ini and :fin then 1 else 0 end) newbie,
                 count(1) uploads
-                from categorylinks 
-                join page pg on page_id = cl_from 
-                join image img on img_name = page_title 
+                from categorylinks
+                join page pg on page_id = cl_from
+                join image img on img_name = page_title
                 join `user` us on img_user = user_id
                 where cl_to = :cat
                 and cl_type = 'file'

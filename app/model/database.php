@@ -1,6 +1,6 @@
 <?php
 
-namespace helper;
+namespace model;
 
 class database extends \DB\SQL{
 
