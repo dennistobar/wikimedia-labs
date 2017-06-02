@@ -34,15 +34,18 @@ class desafio extends main
             rc_new = 0 and
             rc_bot = 0;';
 
-        $pData = ['max' => $max, 'string' => '%ediciones%'];
+        $pData = ['max' => (int)$max+1, 'string' => '%ediciones%'];
 
         $qInsert = "Insert into ediciones
         select :rc_id, :rc_timestamp, :rc_user, :rc_user_text, :rc_namespace, :rc_title, :size, :rc_comment, :rc_this_oldid from dual
         where not exists (select 1 from ediciones where rc_id = :rc_id) limit 1";
-
-        foreach ($origin->exec($qData, $pData) as $item) {
+        $changes = $origin->exec($qData, $pData);
+        foreach ($changes as $item) {
             $dest->exec($qInsert, $item);
         }
+        header('Content-type: application/json');
+        echo json_encode(['start' => $max, 'edits' => count($changes)]);
+
     }
 
     public function beforeroute(\Base $fat){
