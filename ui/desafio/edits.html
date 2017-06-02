@@ -1,0 +1,34 @@
+<h4 class="title">Ediciones</h4>
+<table class="table is-striped is-narrow small">
+    <thead>
+        <tr>
+            <th>Día</th>
+            <th>Ediciones</th>
+            <th>Artículos únicos</th>
+            <th>Tamaño aportado<br /><small>Valor absoluto</small></th>
+        </tr>
+    </thead>
+    <tbody>
+        <repeat group="{{@days}}" value="{{@day}}">
+            <tr>
+                <td>{{@day.day}}-{{@day.month}}-{{@day.year}}</td>
+                <td class="has-text-right">{{@day.edits}}</td>
+                <td class="has-text-right">{{@day.articles}}</td>
+                <td class="has-text-right">{{@day.size}}</td>
+            </tr>
+        </repeat>
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Total</th>
+            <td class="has-text-right">{{array_sum(array_column(@days, 'edits'))}}</td>
+            <td class="has-text-right">{{array_sum(array_column(@days, 'articles'))}}</td>
+            <td class="has-text-right">{{array_sum(array_column(@days, 'size'))}}</td>
+        </tr>
+    </tfoot>
+</table>
+<style>
+    table.small {
+        font-size: 0.9rem
+    }
+</style>

@@ -1,0 +1,25 @@
+<h4 class="title">Contribuciones del usuario</h4>
+<div class="columns">
+    <div class="column">
+        <table class="table is-striped is-narrow small">
+            <thead>
+                <tr>
+                    <th>Artículo</th>
+                    <th>Tamaño</th>
+                    <th>Fecha</th>
+                    <th>Cambio</th>
+                </tr>
+            </thead>
+            <tbody>
+                <repeat group="{{@contribs}}" value="{{@edit}}">
+                    <tr>
+                        <td>{{@edit.rc_title | nounderline }}</td>
+                        <td>{{@edit.rc_size_abs}}</td>
+                        <td>{{@edit.rc_timestamp}}</td>
+                        <td><a href="https://es.wikipedia.org/wiki/Special:Diff/{{@edit.rc_this_oldid}}" target="_blank">{{@edit.rc_this_oldid}}</a></td>
+                    </tr>
+                </repeat>
+            </tbody>
+        </table>
+    </div>
+</div>

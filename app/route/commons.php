@@ -2,7 +2,7 @@
 
 namespace route;
 
-class commons
+class commons extends main
 {
     public function index(\Base $fat)
     {
@@ -40,10 +40,4 @@ class commons
         $fat->set('page.title', 'Commons Tools');
     }
 
-    public function afterroute(\Base $fat)
-    {
-        if ($fat->get('AJAX') === false) {
-            echo \Template::instance()->render('layout.html');
-        }
-    }
 }

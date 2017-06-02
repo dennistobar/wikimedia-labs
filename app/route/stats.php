@@ -2,25 +2,26 @@
 
 namespace route;
 
-class stats
+class stats extends main
 {
-    public function index($f3)
+    public function index($fat)
     {
-        $f3->set('page.title', 'Wiki Loves (Whatever)');
-        $f3->set('page.contents', 'stats/index.html');
-        echo \Template::instance()->render('layout.html');
+        $fat->set('page.contents', 'stats/index.html');
     }
 
-    public function process($f3)
+    public function process($fat)
     {
-        $category = str_replace(" ", "_", $f3->get('POST.category'));
-        $stats = new \model\stats($category, $f3->get('POST.initial'), $f3->get('POST.final'), 0);
+        $category = str_replace(" ", "_", $fat->get('POST.category'));
+        $stats = new \model\stats($category, $fat->get('POST.initial'), $fat->get('POST.final'), 0);
 
-        $f3->set('totals', $stats->getTotals());
-        $f3->set('users', $stats->getUsers());
+        $fat->set('totals', $stats->getTotals());
+        $fat->set('users', $stats->getUsers());
 
-        $f3->set('page.title', 'Wiki Loves (Whatever)');
-        $f3->set('page.contents', 'stats/dashboard.html');
-        echo \Template::instance()->render('layout.html');
+        $fat->set('page.contents', 'stats/dashboard.html');
+    }
+
+    public function beforeroute(\Base $fat)
+    {
+        $fat->set('page.title', 'Wiki Loves (Whatever)');
     }
 }
