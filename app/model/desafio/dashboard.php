@@ -16,7 +16,7 @@ class dashboard {
 
 
     public static function days(){
-        $qDays = "select substring(rc_timestamp, 1, 8) day, count(1) edits, sum(rc_size_abs) size
+        $qDays = "select substring(rc_timestamp, 1, 8) timestamp, count(1) edits, sum(rc_size_abs) size
             , count(distinct rc_title) articles
         from ediciones
         group by 1;
@@ -25,9 +25,7 @@ class dashboard {
         $rDays = \model\database::instance('tools', \F3::get('db.user').'__desafio')->exec($qDays);
 
         array_walk($rDays, function(&$item){
-            $item['year'] = substr($item['day'], 0, 4);
-            $item['month'] = substr($item['day'], 4, 2);
-            $item['day'] = substr($item['day'], 6, 2);
+            $item = array_merge($item, \helper\parsers::timestamp($item['timestamp']));
         });
 
         return $rDays;

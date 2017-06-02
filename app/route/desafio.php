@@ -8,12 +8,24 @@ class desafio extends main
     {
         $fat->set('ranking', \model\desafio\dashboard::ranking());
         $fat->set('days', \model\desafio\dashboard::days());
+        $fat->set('page.subtitle', 'Resumen');
         $fat->set('page.contents', 'desafio/dashboard.html');
     }
 
-    public function user(\Base $fat){
+    public function user(\Base $fat)
+    {
         $fat->set('contribs', \model\desafio\ediciones::user($fat->get('PARAMS.user')));
+        $fat->set('page.subtitle', 'Contribuciones de usuario '.\helper\formaters::instance()->nounderline($fat->get('PARAMS.user')));
         $fat->set('page.contents', 'desafio/usercontrib.html');
+    }
+
+    public function day(\Base $fat)
+    {
+        $dia = \helper\parsers::timestamp($fat->get('PARAMS.day'));
+        $fat->set('contribs', \model\desafio\ediciones::day($fat->get('PARAMS.day')));
+        $fat->set('day', implode('-', [$dia['day'], $dia['month'], $dia['year']]));
+        $fat->set('page.subtitle', 'Contribuciones del día '.$fat->get('day'));
+        $fat->set('page.contents', 'desafio/day.html');
     }
 
     public function cronSQL(\Base $fat)
@@ -45,11 +57,10 @@ class desafio extends main
         }
         header('Content-type: application/json');
         echo json_encode(['start' => $max, 'edits' => count($changes)]);
-
     }
 
-    public function beforeroute(\Base $fat){
-        $fat->set('page.title', 'Resumen Desafío');
+    public function beforeroute(\Base $fat)
+    {
+        $fat->set('page.title', 'Desafío para mejorar la calidad de Wikipedia');
     }
-
 }

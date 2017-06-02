@@ -22,6 +22,7 @@ $fat->route('POST /stats/process', 'route\stats->process');
 /* Desafio de edicion */
 $fat->route('GET /desafio', 'route\desafio->index');
 $fat->route('GET /desafio/@user', 'route\desafio->user');
+$fat->route('GET /desafio/day/@day', 'route\desafio->day');
 /** Cron **/
 $cron = \Cron::instance();
 $cron->set('jobDesafio', 'route\desafio->cronSQL', '*/5 * * * *');

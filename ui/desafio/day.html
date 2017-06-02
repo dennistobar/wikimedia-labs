@@ -1,25 +1,24 @@
 <ul class="breadcrumb">
     <li><a href="{{@BASE}}/desafio">Inicio</a></li>
-    <li class="is-active">{{@PARAMS.user | nounderline }}</li>
+    <li class="is-active">{{@day}}</li>
 </ul>
-
 <div class="columns">
     <div class="column">
         <table class="table is-striped is-narrow small">
             <thead>
                 <tr>
+                    <th>Editor</th>
                     <th>Artículo</th>
-                    <th>Tamaño<br /><small>bytes</small></th>
-                    <th>Fecha<br /><small>UTC</small></th>
+                    <th>Tamaño</th>
                     <th>Cambio</th>
                 </tr>
             </thead>
             <tbody>
                 <repeat group="{{@contribs}}" value="{{@edit}}">
                     <tr>
+                        <td>{{@edit.rc_user_text | nounderline }}</td>
                         <td>{{@edit.rc_title | nounderline }}</td>
-                        <td class="has-text-centered">{{@edit.rc_size_abs}}</td>
-                        <td class="has-text-centered">{{@edit.rc_timestamp | timestamp}}</td>
+                        <td>{{@edit.rc_size_abs}}</td>
                         <td><a href="https://es.wikipedia.org/wiki/Special:Diff/{{@edit.rc_this_oldid}}" target="_blank">{{@edit.rc_this_oldid}}</a></td>
                     </tr>
                 </repeat>

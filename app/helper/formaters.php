@@ -14,9 +14,17 @@ class formaters extends \Prefab
         return str_replace("_", " ", $string);
     }
 
+    public function timestamp($string)
+    {
+        $timestamp = parsers::timestamp($string);
+        return implode("-", [$timestamp['day'], $timestamp['month'], $timestamp['year']]).' '
+            .implode(":", [$timestamp['hour'], $timestamp['minute']]);
+    }
+
     public static function registry()
     {
         \Template::instance()->filter('url', '\helper\formaters::instance()->url');
         \Template::instance()->filter('nounderline', '\helper\formaters::instance()->nounderline');
+        \Template::instance()->filter('timestamp', '\helper\formaters::instance()->timestamp');
     }
 }
