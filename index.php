@@ -26,8 +26,8 @@ $fat->route('GET /desafio/day/@day', 'route\desafio->day');
 /** Cron **/
 $cron = \Cron::instance();
 $cron->set('jobDesafio', 'route\desafio->cronSQL', '*/5 * * * *');
+$cron->set('jobCategories', 'route\desafio->cronCategories', '* */6 * * *');
 $cron->web = true;
-
 
 \helper\formaters::registry();
 
