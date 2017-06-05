@@ -9,7 +9,8 @@
                 <tr>
                     <th>Editor</th>
                     <th>Artículo</th>
-                    <th>Tamaño</th>
+                    <th class="is-hidden-touch">Comentario</th>
+                    <th class="is-hidden-touch">Tamaño<br /><small>bytes</small></th>
                     <th>Cambio</th>
                 </tr>
             </thead>
@@ -18,7 +19,8 @@
                     <tr>
                         <td>{{@edit.rc_user_text | nounderline }}</td>
                         <td>{{@edit.rc_title | nounderline }}</td>
-                        <td>{{@edit.rc_size_abs}}</td>
+                        <td class="is-hidden-touch">{{@edit.rc_comment}}</td>
+                        <td class="is-hidden-touch">{{@edit.rc_size_abs}}</td>
                         <td><a href="https://es.wikipedia.org/wiki/Special:Diff/{{@edit.rc_this_oldid}}" target="_blank">{{@edit.rc_this_oldid}}</a></td>
                     </tr>
                 </repeat>
