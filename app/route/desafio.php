@@ -66,7 +66,8 @@ class desafio extends main
     {
         $categorias = ['Wikipedia:Artículos sin contextualizar', 'Wikipedia:Artículos que necesitan referencias', 'Wikipedia:Wikificar'
         , 'Wikipedia:Traducción automática', 'Wikipedia:Traducciones para mejorar', 'Wikipedia:Artículos desactualizados', 'Wikipedia:Artículos que necesitan formato correcto de referencias'
-        , 'Wikipedia:No neutral', 'Wikipedia:Categorizar', 'Wikipedia:Páginas huérfanas', 'Wikipedia:Páginas con referencias con parámetros obsoletos'];
+        , 'Wikipedia:No neutral', 'Wikipedia:Categorizar', 'Wikipedia:Páginas huérfanas', 'Wikipedia:Páginas con referencias con parámetros obsoletos'
+        , 'Wikipedia:Copyedit'];
 
         $query = ['action' => 'query', 'prop' => 'categoryinfo'];
         $query['titles'] = implode("|", array_map(function ($item) {
