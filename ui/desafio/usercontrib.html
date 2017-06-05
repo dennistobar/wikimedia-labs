@@ -3,27 +3,46 @@
     <li class="is-active">{{@PARAMS.user | nounderline }}</li>
 </ul>
 
-<div class="columns">
-    <div class="column">
-        <table class="table is-striped is-narrow small">
-            <thead>
-                <tr>
-                    <th>Artículo</th>
-                    <th>Tamaño<br /><small>bytes</small></th>
-                    <th>Fecha<br /><small>UTC</small></th>
-                    <th>Cambio</th>
-                </tr>
-            </thead>
-            <tbody>
-                <repeat group="{{@contribs}}" value="{{@edit}}">
-                    <tr>
-                        <td>{{@edit.rc_title | nounderline }}</td>
-                        <td class="has-text-centered">{{@edit.rc_size_abs}}</td>
-                        <td class="has-text-centered">{{@edit.rc_timestamp | timestamp}}</td>
-                        <td><a href="https://es.wikipedia.org/wiki/Special:Diff/{{@edit.rc_this_oldid}}" target="_blank">{{@edit.rc_this_oldid}}</a></td>
-                    </tr>
-                </repeat>
-            </tbody>
-        </table>
+<nav class="level">
+    <div class="level-item has-text-centered">
+        <div>
+            <p class="heading">Ediciones</p>
+            <p class="title">{{@stats.edits}}</p>
+        </div>
     </div>
-</div>
+    <div class="level-item has-text-centered">
+        <div>
+            <p class="heading">Artículos únicos</p>
+            <p class="title">{{@stats.articles}}</p>
+        </div>
+    </div>
+    <div class="level-item has-text-centered">
+        <div>
+            <p class="heading">Bytes añadidos</p>
+            <p class="title">{{@stats.size}}</p>
+        </div>
+    </div>
+</nav>
+
+<table class="table is-striped is-narrow small">
+    <thead>
+        <tr>
+            <th>Artículo</th>
+            <th class="is-hidden-touch">Tamaño<br /><small>bytes</small></th>
+            <th>Fecha<br /><small>UTC</small></th>
+            <th class="is-hidden-touch">Comentario</th>
+            <th>Cambio</th>
+        </tr>
+    </thead>
+    <tbody>
+        <repeat group="{{@contribs}}" value="{{@edit}}">
+            <tr>
+                <td>{{@edit.rc_title | nounderline }}</td>
+                <td class="has-text-centered is-hidden-touch">{{@edit.rc_size_abs}}</td>
+                <td class="has-text-centered">{{@edit.rc_timestamp | timestamp}}</td>
+                <td class="is-hidden-touch">{{@edit.rc_comment}}</td>
+                <td><a href="https://es.wikipedia.org/wiki/Special:Diff/{{@edit.rc_this_oldid}}" target="_blank">{{@edit.rc_this_oldid}}</a></td>
+            </tr>
+        </repeat>
+    </tbody>
+</table>

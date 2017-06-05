@@ -15,6 +15,7 @@ class desafio extends main
     public function user(\Base $fat)
     {
         $fat->set('contribs', \model\desafio\ediciones::user($fat->get('PARAMS.user')));
+        $fat->set('stats', \model\desafio\ediciones::user_stats($fat->get('PARAMS.user')));
         $fat->set('page.subtitle', 'Contribuciones de usuario '.\helper\formaters::instance()->nounderline($fat->get('PARAMS.user')));
         $fat->set('page.contents', 'desafio/usercontrib.html');
     }
