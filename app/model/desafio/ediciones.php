@@ -17,8 +17,12 @@ class ediciones extends \DB\SQL\Mapper
     public static function user_stats($user)
     {
         $edits = self::user($user);
-        $bytes = array_sum(array_column($edits, 'rc_size_abs'));
-        $articles = count(array_unique(array_column($edits, 'rc_title')));
+        $bytes = array_sum(array_map(function ($edit) {
+            return (int)$edit['rc_size_abs'];
+        }, $edits));
+        $articles = count(array_unique(array_map(function ($edit) {
+            return $edit['rc_title'];
+        }, $edits)));
         return ['size' => $bytes, 'articles' => $articles, 'edits' => count($edits)];
     }
 
