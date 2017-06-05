@@ -2,26 +2,24 @@
 <table class="table is-striped is-narrow small">
     <thead>
         <tr>
-            <th colspan="3">Usuario</th>
+            <th colspan="2">Usuario</th>
             <th rowspan="2">Ediciones</th>
             <th rowspan="2">Artículos únicos</th>
-            <th rowspan="2">Tamaño aportado<br /><small>Valor absoluto</small></th>
+            <th rowspan="2" class="is-hidden-touch">Tamaño aportado<br /><small>Valor absoluto</small></th>
         </tr>
         <tr>
             <th>Nombre</th>
-            <th>Wikipedia</th>
             <th>Revisar ediciones</th>
         </tr>
     </thead>
     <tbody>
         <repeat group="{{@ranking}}" value="{{@user}}">
             <tr>
-                <td>{{@user.user}}</td>
-                <td><a href="https://es.wikipedia.org/wiki/User:{{@user.user | url}}">wikipedia</a></td>
+                <td><a href="https://es.wikipedia.org/wiki/User:{{@user.user | url}}">{{@user.user}}</a></td>                
                 <td><a href="./desafio/{{@user.user | url}}">ediciones</a></td>
                 <td class="has-text-right">{{@user.edits}}</td>
                 <td class="has-text-right">{{@user.articles}}</td>
-                <td class="has-text-right">{{@user.size}}</td>
+                <td class="has-text-right is-hidden-touch">{{@user.size}}</td>
             </tr>
         </repeat>
     </tbody>
