@@ -3,8 +3,8 @@
     <thead>
         <tr>
             <th>Día</th>
-            <th>Ediciones</th>
             <th>Artículos únicos</th>
+            <th>Ediciones</th>
             <th>Tamaño aportado<br /><small>Valor absoluto</small></th>
         </tr>
     </thead>
@@ -12,8 +12,8 @@
         <repeat group="{{@days}}" value="{{@day}}">
             <tr>
                 <td><a href="./desafio/day/{{@day.timestamp}}">{{@day.day}}-{{@day.month}}-{{@day.year}}</a></td>
-                <td class="has-text-right">{{@day.edits}}</td>
                 <td class="has-text-right">{{@day.articles}}</td>
+                <td class="has-text-right">{{@day.edits}}</td>
                 <td class="has-text-right">{{@day.size}}</td>
             </tr>
         </repeat>
@@ -21,8 +21,8 @@
     <tfoot>
         <tr>
             <th>Total</th>
-            <td class="has-text-right">{{array_sum(array_column(@days, 'edits'))}}</td>
             <td class="has-text-right">{{array_sum(array_column(@days, 'articles'))}}</td>
+            <td class="has-text-right">{{array_sum(array_column(@days, 'edits'))}}</td>
             <td class="has-text-right">{{array_sum(array_column(@days, 'size'))}}</td>
         </tr>
     </tfoot>
