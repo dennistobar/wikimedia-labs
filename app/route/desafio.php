@@ -29,6 +29,13 @@ class desafio extends main
         $fat->set('page.contents', 'desafio/day.html');
     }
 
+    public function resume(\Base $fat){
+        $data = \model\desafio\categoria::resumen();
+        $fat->set('data', $data);
+        $fat->set('page.subtitle', 'Tabla resumen para Wikipedia');
+        $fat->set('page.contents', 'desafio/resume.html');
+    }
+
     public function cronSQL(\Base $fat)
     {
         $origin = \model\database::instance('commonswiki', 'commonswiki');
