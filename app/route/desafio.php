@@ -49,7 +49,7 @@ class desafio extends main
         where rc_id > 0 and
             rc_namespace in (0, 104) and
             lower(rc_comment) like :string and
-            rc_timestamp between :max and 20170623000000 and
+            rc_timestamp between :max and 20170624000000 and
             rc_user > 5 and
             rc_new = 0 and
             rc_bot = 0;';
