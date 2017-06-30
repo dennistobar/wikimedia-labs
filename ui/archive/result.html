@@ -15,7 +15,7 @@
             <tr>
                 <td>{{@site.url}}</td>
                 <td>{{@site.status.http ? 'Sí' : 'No'}}</td>
-                <td>{{!!@site.status.archive ? (@site.status.archive->format('d/m/Y H:i:s').'<br />'.@site.status.archive->diff(new \DateTime(), true)->days.' días' : 'Nunca'}}</td>
+                <td>{{!!@site.status.archive ? (@site.status.archive->format('d/m/Y H:i:s').'<br />'.@site.status.archive->diff(new \DateTime(), true)->days.' días') : 'Nunca'}}</td>
                 <td>{{@site.status.sent ? 'Sí' : 'No'}}</td>
                 <check if="{{@site.status.sent || @site.status.archive}}">
                     <td><a href="http://web.archive.org/web/{{@site.url}}" target="_blank">Ver</a></td>
