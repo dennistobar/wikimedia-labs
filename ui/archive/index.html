@@ -1,0 +1,27 @@
+<h3 class="title">Enviar enlaces a Internet Archive</h3>
+<form method="post" action="./internet-archive/process">
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="label">Artículo de Wikipedia</label>
+        </div>
+        <div class="field-body">
+            <div class="field is-expanded">
+                <div class="control">
+                    <input type="text" class="input" name="article" placeholder="Nombre del artículo" required="required" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="field is-horizontal">
+        <div class="field-label">
+            <!-- Left empty for spacing -->
+        </div>
+        <div class="field-body">
+            <div class="field">
+                <div class="control">
+                    <button class="button is-primary">Buscar enlaces externos</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
