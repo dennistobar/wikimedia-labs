@@ -18,7 +18,7 @@ class categoria extends \DB\SQL\Mapper
         , (select cat_articulos from categorias cat2 where cat.cat_name = cat2.cat_name and substring(cat2.cat_timestamp, 1, 11) = 20170610000) '20170610'
         , (select cat_articulos from categorias cat2 where cat.cat_name = cat2.cat_name and substring(cat2.cat_timestamp, 1, 11) = 20170615000) '20170615'
         , (select cat_articulos from categorias cat2 where cat.cat_name = cat2.cat_name and substring(cat2.cat_timestamp, 1, 11) = 20170620000) '20170620'
-        , (select cat_articulos from categorias cat2 where cat.cat_name = cat2.cat_name and substring(cat2.cat_timestamp, 1, 11) = 20170623000) '20170623'
+        , (select cat_articulos from categorias cat2 where cat.cat_name = cat2.cat_name and substring(cat2.cat_timestamp, 1, 11) = 20170623233) '20170623'
         from categorias cat
         left join categoria_descripcion cat2
 	       on cat.cat_name = cat2.cat_name
