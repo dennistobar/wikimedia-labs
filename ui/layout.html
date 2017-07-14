@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{@BASE}}/css/site.css">
     <title>{{@page.title}}{{is_null(@page.subtitle) ? '' : (': '.@page.subtitle)}}</title>
+    {{ \helper\hook::run('head_end'); }}
 </head>
 
 <body>
@@ -46,7 +47,7 @@
             <a href="https://twitter.com/dennistobar">@dennistobar</a> / <a href="https://github.com/dennistobar">github.com/dennistobar</a>
         </div>
     </footer>
-
+    {{ \helper\hook::run('body_end'); }}
 </body>
 
 </html>
