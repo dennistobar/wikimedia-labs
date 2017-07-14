@@ -33,6 +33,7 @@ $cron->web = true;
 /* Internet Archive */
 $fat->route('GET /internet-archive', 'route\archive->index');
 $fat->route('POST /internet-archive/process', 'route\archive->process');
+
 \helper\formaters::registry();
 
 $fat->run();

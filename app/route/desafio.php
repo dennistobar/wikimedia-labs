@@ -29,7 +29,8 @@ class desafio extends main
         $fat->set('page.contents', 'desafio/day.html');
     }
 
-    public function resume(\Base $fat){
+    public function resume(\Base $fat)
+    {
         $data = \model\desafio\categoria::resumen();
         $fat->set('data', $data);
         $fat->set('page.subtitle', 'Tabla resumen para Wikipedia');

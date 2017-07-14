@@ -39,5 +39,4 @@ class commons extends main
     {
         $fat->set('page.title', 'Commons Tools');
     }
-
 }
