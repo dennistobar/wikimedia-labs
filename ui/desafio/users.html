@@ -16,7 +16,7 @@
         <repeat group="{{@ranking}}" value="{{@user}}">
             <tr>
                 <td><a href="https://es.wikipedia.org/wiki/User:{{@user.user | url}}">{{@user.user}}</a></td>
-                <td><a href="./desafio/{{@user.user | url}}">ediciones</a></td>
+                <td><a href="./{{@PARAMS.name}}/{{@user.user | url}}">ediciones</a></td>
                 <td class="has-text-right">{{@user.articles}}</td>
                 <td class="has-text-right">{{@user.edits}}</td>
                 <td class="has-text-right is-hidden-touch">{{@user.size}}</td>

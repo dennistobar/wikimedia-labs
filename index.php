@@ -20,14 +20,15 @@ $fat->route('GET /stats', 'route\stats->index');
 $fat->route('POST /stats/process', 'route\stats->process');
 
 /* Desafio de edicion */
-$fat->route('GET /desafio', 'route\desafio->index');
-$fat->route('GET /desafio/@user', 'route\desafio->user');
-$fat->route('GET /desafio/day/@day', 'route\desafio->day');
-$fat->route('GET /desafio/resumen', 'route\desafio->resume');
+$fat->route('GET /desafio/@name', 'route\desafio->index');
+$fat->route('GET /desafio/@name/@user', 'route\desafio->user');
+$fat->route('GET /desafio/@name/day/@day', 'route\desafio->day');
+$fat->route('GET /desafio/@name/resumen', 'route\desafio->resume');
+
 /** Cron **/
 $cron = \Cron::instance();
-$cron->set('jobDesafio', 'route\desafio->cronSQL', '*/5 * * * *');
-$cron->set('jobCategories', 'route\desafio->cronCategories', '* */6 * * *');
+$cron->set('jobDesafio', 'route\cron::cronSQL', '*/5 * * * *');
+$cron->set('jobCategories', 'route\cron::cronCategories', '* */6 * * *');
 $cron->web = true;
 
 /* Internet Archive */

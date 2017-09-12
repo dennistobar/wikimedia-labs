@@ -9,14 +9,14 @@ class ediciones extends \DB\SQL\Mapper
         parent::__construct(\model\database::instance('tools', \F3::get('db.user').'__desafio'), 'ediciones');
     }
 
-    public static function user($user)
+    public static function user($desafio, $user)
     {
-        return (new self)->find(['rc_user_text = ?', $user]);
+        return (new self)->find(['rc_user_text = ? and desafio = ?', $user, $desafio]);
     }
 
-    public static function user_stats($user)
+    public static function user_stats($desafio, $user)
     {
-        $edits = self::user($user);
+        $edits = self::user($desafio, $user);
         $bytes = array_sum(array_map(function ($edit) {
             return (int)$edit['rc_size_abs'];
         }, $edits));
@@ -26,8 +26,8 @@ class ediciones extends \DB\SQL\Mapper
         return ['size' => $bytes, 'articles' => $articles, 'edits' => count($edits)];
     }
 
-    public static function day($day, $user = null)
+    public static function day($desafio, $day, $user = null)
     {
-        return (new self)->find(['substring(rc_timestamp, 1, 8) = ? and rc_user_text = ifnull(?, rc_user_text)', $day, $user]);
+        return (new self)->find(['substring(rc_timestamp, 1, 8) = ? and rc_user_text = ifnull(?, rc_user_text) and desafio = ?', $day, $user, $desafio]);
     }
 }

@@ -11,7 +11,7 @@
     <tbody>
         <repeat group="{{@days}}" value="{{@day}}">
             <tr>
-                <td><a href="./desafio/day/{{@day.timestamp}}">{{@day.day}}-{{@day.month}}-{{@day.year}}</a></td>
+                <td><a href="./{{@PARAMS.name}}/day/{{@day.timestamp}}">{{@day.day}}-{{@day.month}}-{{@day.year}}</a></td>
                 <td class="has-text-right">{{@day.articles}}</td>
                 <td class="has-text-right">{{@day.edits}}</td>
                 <td class="has-text-right">{{@day.size}}</td>
