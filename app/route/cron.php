@@ -33,7 +33,6 @@ class cron
             $fecha = min([(int)$max+1, (int)(new \DateTime('-1 hour', new \DateTimeZone('UTC')))->format('YmdHis')]);
 
             $pData = ['max' => $fecha, 'string' => '%#'.$r_desafio['desafio_name'].'%', 'end' => $r_desafio['desafio_end'], 'desafio' => $r_desafio['desafio_name']];
-            var_dump($pData);
             $qInsert = "Insert into ediciones
             select :rc_id, :rc_timestamp, :rc_user, :rc_user_text, :rc_namespace, :rc_title, :size, :rc_comment, :rc_this_oldid, :desafio from dual
             where not exists (select 1 from ediciones where rc_id = :rc_id) limit 1";
