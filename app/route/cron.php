@@ -18,10 +18,9 @@ class cron
 
         $desafios = $desafio->select('desafio_name, desafio_end', ['? between desafio_start and desafio_end', $timestamp]);
         $return = [];
-        foreach($desafios as $r_desafio){
-
+        foreach ($desafios as $r_desafio) {
             $qData = 'select rc_id, rc_timestamp, rc_user, rc_user_text, rc_namespace, rc_title
-                , abs(rc_old_len - rc_new_len) size, rc_comment, rc_this_oldid
+                , abs(rc_old_len - rc_new_len) size, rc_comment, rc_this_oldid, :desafio as desafio
             from eswiki_p.recentchanges
             where rc_id > 0 and
                 rc_namespace in (0, 104) and
@@ -31,12 +30,12 @@ class cron
                 rc_new = 0 and
                 rc_bot = 0;';
 
-            $fecha = max([(int)$max+1, (int)(new \DateTime('-1 hour', new \DateTimeZone('UTC')))->format('YmdHis')]);
+            $fecha = min([(int)$max+1, (int)(new \DateTime('-1 hour', new \DateTimeZone('UTC')))->format('YmdHis')]);
 
-            $pData = ['max' => $fecha, 'string' => '%#'.$desafio['desafio_name'].'%', 'end' => $r_desafio['desafio_end']];
-
+            $pData = ['max' => $fecha, 'string' => '%#'.$r_desafio['desafio_name'].'%', 'end' => $r_desafio['desafio_end'], 'desafio' => $r_desafio['desafio_name']];
+            var_dump($pData);
             $qInsert = "Insert into ediciones
-            select :rc_id, :rc_timestamp, :rc_user, :rc_user_text, :rc_namespace, :rc_title, :size, :rc_comment, :rc_this_oldid from dual
+            select :rc_id, :rc_timestamp, :rc_user, :rc_user_text, :rc_namespace, :rc_title, :size, :rc_comment, :rc_this_oldid, :desafio from dual
             where not exists (select 1 from ediciones where rc_id = :rc_id) limit 1";
             $changes = $origin->exec($qData, $pData);
             foreach ($changes as $item) {
