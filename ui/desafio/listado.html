@@ -25,7 +25,7 @@
                         <td class="has-text-right">{{ @Desafio->totals()['articles'] | number }}</td>
                         <td class="has-text-right">{{ @Desafio->totals()['editions'] | number }}</td>
                         <td class="has-text-right">{{ @Desafio->totals()['size'] | number }}</td>
-                        <td class="has-text-centered"><a href="/desafio/{{ @Desafio->desafio_name }}">Ver más</a></td>
+                        <td class="has-text-centered"><a href="{{@BASE}}/desafio/{{ @Desafio->desafio_name }}">Ver más</a></td>
                     </tr>
                 </repeat>
             </tbody>
