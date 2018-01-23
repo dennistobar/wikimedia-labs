@@ -13,4 +13,14 @@ class desafio extends \DB\SQL\Mapper
     {
         return (new self)->find(['desafio_name = ?', $name]);
     }
+
+    public function totals()
+    {
+        return ediciones::totals($this->desafio_name);
+    }
+
+    public static function instance()
+    {
+        return new self;
+    }
 }

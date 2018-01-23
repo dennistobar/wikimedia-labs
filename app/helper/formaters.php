@@ -21,10 +21,16 @@ class formaters extends \Prefab
             .implode(":", [$timestamp['hour'], $timestamp['minute']]);
     }
 
+    public function number($string)
+    {
+        return number_format($string, 0, ',', ' ');
+    }
+
     public static function registry()
     {
         \Template::instance()->filter('url', '\helper\formaters::instance()->url');
         \Template::instance()->filter('nounderline', '\helper\formaters::instance()->nounderline');
         \Template::instance()->filter('timestamp', '\helper\formaters::instance()->timestamp');
+        \Template::instance()->filter('number', '\helper\formaters::instance()->number');
     }
 }

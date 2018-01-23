@@ -2,9 +2,19 @@
 
 namespace route;
 
+use \model\desafio\desafio as DesafioModel;
+
 class desafio extends main
 {
     public function index(\Base $fat)
+    {
+        $fat->set('Desafios', DesafioModel::instance()->find());
+        $fat->set('page.title', 'Desafíos de edición en Wikipedia en español');
+        $fat->set('page.subtitle', 'Visión global');
+        $fat->set('page.contents', 'desafio/listado.html');
+    }
+
+    public function home(\Base $fat)
     {
         $fat->set('ranking', \model\desafio\dashboard::ranking($fat->get('PARAMS.name')));
         $fat->set('days', \model\desafio\dashboard::days($fat->get('PARAMS.name')));

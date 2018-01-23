@@ -20,7 +20,8 @@ $fat->route('GET /stats', 'route\stats->index');
 $fat->route('POST /stats/process', 'route\stats->process');
 
 /* Desafio de edicion */
-$fat->route('GET /desafio/@name', 'route\desafio->index');
+$fat->route('GET /desafio', 'route\desafio->index');
+$fat->route('GET /desafio/@name', 'route\desafio->home');
 $fat->route('GET /desafio/@name/@user', 'route\desafio->user');
 $fat->route('GET /desafio/@name/day/@day', 'route\desafio->day');
 $fat->route('GET /desafio/@name/resumen', 'route\desafio->resume');
