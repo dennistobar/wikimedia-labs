@@ -1,26 +1,25 @@
 <h2>Metrics</h2>
-Commons category: {{ \F3::get('POST.category') }}
 <table>
-	<thead>
-		<tr>
-			<th>Metric</th>
-			<th>Newbie</th>
-			<th>Veterean</th>
-			<th>Total</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>Users</td>
-			<td>{{ @totals.newbies }} <br /><small>{{ number_format(@totals.rate_newbies*100, 2) }} % </small></td>
-			<td>{{ @totals.veterean }} <br /><small>{{ number_format(100-@totals.rate_newbies*100, 2) }} % </small></td>
-			<td>{{ @totals.users }}</td>
-		</tr>
-		<tr>
-			<td>Uploads</td>
-			<td>{{ @totals.newbie_uploads }} <br /><small>{{ number_format(@totals.rate_newbies_uploads*100, 2) }} % </small></td>
-			<td>{{ @totals.veterean_uploads }} <br /><small>{{ number_format(100-@totals.rate_newbies_uploads*100, 2) }} % </small></td>
-			<td>{{ @totals.uploads }}</td>
-		</tr>
-	</tbody>
+    <thead>
+        <tr>
+            <th>Metric</th>
+            <th>Newbie</th>
+            <th>Veterean</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Users</td>
+            <td>{{ @totals.newbies }} <br /><small>{{ number_format(@totals.rate_newbies*100, 2) }} % </small></td>
+            <td>{{ @totals.veterean }} <br /><small>{{ number_format(100-@totals.rate_newbies*100, 2) }} % </small></td>
+            <td>{{ @totals.users }}</td>
+        </tr>
+        <tr>
+            <td>Uploads</td>
+            <td>{{ @totals.newbie_uploads }} <br /><small>{{ number_format(@totals.rate_newbies_uploads*100, 2) }} % </small></td>
+            <td>{{ @totals.veterean_uploads }} <br /><small>{{ number_format(100-@totals.rate_newbies_uploads*100, 2) }} % </small></td>
+            <td>{{ @totals.uploads }}</td>
+        </tr>
+    </tbody>
 </table>

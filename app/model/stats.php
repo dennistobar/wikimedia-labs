@@ -10,7 +10,7 @@ class stats
 
     public function __construct($category, $initial, $final, $cost)
     {
-        $this->params = ['cat' => $category, 'ini' => $initial, 'fin' => $final];
+        $this->params = ['cat' => $category, 'ini' => self::date($initial), 'fin' => self::date($final, false)];
         $this->cost = $cost;
     }
 
@@ -57,6 +57,11 @@ class stats
             $this->list = \model\database::instance('commonswiki', 'commonswiki')->exec($qList, $pList);
         }
         return $this->list;
+    }
+
+    public static function date($date, $initial = true)
+    {
+        return str_replace('-', '', $date).($initial ? '000000' : '235959');
     }
 
     /** http://stackoverflow.com/a/24049361 **/
