@@ -56,8 +56,20 @@ class desafio extends main
         } else {
             die('Error, desafío no encontrado');
         }
-        $fat->set('desafio', $desafio);
-
         $fat->set('page.title', $desafio['desafio_title']);
+        if ($fat->exists('PARAMS.name')) {
+            $fat->set('desafio', $desafio);
+            if ($desafio->has_resumen()) {
+                $menu = [
+                    ['href' => $fat->get('BASE').'/desafio/'.$name, 'txt' => 'General'],
+                    ['href' => $fat->get('BASE').'/desafio/'.$name.'/resumen', 'txt' => 'Tabla de categoría'],
+                ];
+                $menu = array_map(function ($f) use ($fat) {
+                    $f['classCSS'] = $fat->get('PATH') === $f['href'] ? 'is-active' : '';
+                    return $f;
+                }, $menu);
+                $fat->set('page.menu_footer', $menu);
+            }
+        }
     }
 }

@@ -23,4 +23,9 @@ class desafio extends \DB\SQL\Mapper
     {
         return new self;
     }
+
+    public function has_resumen()
+    {
+        return !!$this->desafio_has_resumen;
+    }
 }

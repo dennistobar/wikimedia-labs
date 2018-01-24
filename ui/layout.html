@@ -27,6 +27,7 @@
                         <a class="nav-item" href="{{@BASE}}/commons">Commons</a>
                         <a class="nav-item" href="{{@BASE}}/stats">Wiki Loves (X)</a>
                         <a class="nav-item" href="{{@BASE}}/internet-archive">To Internet Archive</a>
+                        <a class="nav-item" href="{{@BASE}}/desafio">Desafios</a>
                     </div>
                 </div>
             </header>
@@ -37,6 +38,19 @@
                 <h3 class="subtitle">{{@page.subtitle}}</h3>
             </div>
         </div>
+        <check if="{{ @page.menu_footer }}">
+            <div class="hero-foot">
+                <nav class="tabs is-boxed is-fullwidth">
+                    <div class="container">
+                        <ul>
+                            <repeat group="{{ @page.menu_footer }}" value="{{ @menu }}">
+                                <li class="{{ @menu.classCSS }}"><a href="{{ @menu.href }}">{{ @menu.txt }}</a></li>
+                            </repeat>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </check>
     </section>
     <section class="section content">
         <include if="{{@page.contents}}" href="{{@page.contents}}" />
