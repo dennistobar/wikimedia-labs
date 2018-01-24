@@ -17,9 +17,9 @@
             <tr>
                 <td><a href="https://es.wikipedia.org/wiki/User:{{@user.user | url}}">{{@user.user}}</a></td>
                 <td><a href="./{{@PARAMS.name}}/{{@user.user | url}}">ediciones</a></td>
-                <td class="has-text-right">{{@user.articles}}</td>
-                <td class="has-text-right">{{@user.edits}}</td>
-                <td class="has-text-right is-hidden-touch">{{@user.size}}</td>
+                <td class="has-text-right">{{@user.articles | number }}</td>
+                <td class="has-text-right">{{@user.edits | number }}</td>
+                <td class="has-text-right is-hidden-touch">{{@user.size | number }}</td>
             </tr>
         </repeat>
     </tbody>

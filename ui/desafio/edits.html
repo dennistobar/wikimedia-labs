@@ -12,18 +12,18 @@
         <repeat group="{{@days}}" value="{{@day}}">
             <tr>
                 <td><a href="./{{@PARAMS.name}}/day/{{@day.timestamp}}">{{@day.day}}-{{@day.month}}-{{@day.year}}</a></td>
-                <td class="has-text-right">{{@day.articles}}</td>
-                <td class="has-text-right">{{@day.edits}}</td>
-                <td class="has-text-right">{{@day.size}}</td>
+                <td class="has-text-right">{{@day.articles | number }}</td>
+                <td class="has-text-right">{{@day.edits | number }}</td>
+                <td class="has-text-right">{{@day.size | number }}</td>
             </tr>
         </repeat>
     </tbody>
     <tfoot>
         <tr>
             <th>Total</th>
-            <td class="has-text-right">{{array_sum(array_column(@days, 'articles'))}}</td>
-            <td class="has-text-right">{{array_sum(array_column(@days, 'edits'))}}</td>
-            <td class="has-text-right">{{array_sum(array_column(@days, 'size'))}}</td>
+            <td class="has-text-right">{{array_sum(array_column(@days, 'articles')) | number }}</td>
+            <td class="has-text-right">{{array_sum(array_column(@days, 'edits')) | number }}</td>
+            <td class="has-text-right">{{array_sum(array_column(@days, 'size')) | number}}</td>
         </tr>
     </tfoot>
 </table>

@@ -20,7 +20,7 @@
                         <td>{{@edit.rc_user_text | nounderline }}</td>
                         <td>{{@edit.rc_title | nounderline }}</td>
                         <td class="is-hidden-touch">{{@edit.rc_comment}}</td>
-                        <td class="is-hidden-touch">{{@edit.rc_size_abs}}</td>
+                        <td class="is-hidden-touch has-text-right">{{@edit.rc_size_abs | number }}</td>
                         <td><a href="https://es.wikipedia.org/wiki/Special:Diff/{{@edit.rc_this_oldid}}" target="_blank">{{@edit.rc_this_oldid}}</a></td>
                     </tr>
                 </repeat>
