@@ -24,3 +24,17 @@ ul.breadcrumb li a:hover {
 table.small {
     font-size: 0.9rem
 }
+
+.hero.is-info {
+    background-color: #145903;
+}
+
+.navbar-end .navbar-item {
+    color: white;
+    background-color: #145903;
+}
+
+.navbar-end .navbar-item:hover {
+    color: #145903!important;
+    background-color: white!important;
+}
