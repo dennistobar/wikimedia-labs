@@ -11,9 +11,10 @@ $fat->set('system.git', exec('git rev-parse --short HEAD'));
 
 /* Commons */
 $fat->route('GET /commons', 'route\commons->index');
+$fat->route('GET /commons/category', 'route\commons->search');
+$fat->route('GET /commons/category/@category/@user', 'route\commons->search');
+$fat->route('GET /commons/category/@category', 'route\commons->search');
 $fat->route('POST /commons/category', 'route\commons->category_redirect');
-$fat->route('GET /commons/category/@category', 'route\commons->category_search');
-$fat->route('GET /commons/category/@category/@user', 'route\commons->category_user_search');
 
 /* Wiki Loves X */
 $fat->route('GET /stats', 'route\stats->index');

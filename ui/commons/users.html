@@ -1,4 +1,4 @@
-<h2>Users in {{@category.name}}</h2>
+<h2>Users in {{@category.name | nounderline }}</h2>
 <table class="table-bordered width-100">
     <thead>
         <tr>
@@ -7,10 +7,10 @@
         </tr>
     </thead>
     <tbody>
-        <repeat group="{{ @rows }}" value="{{ @row }}">
+        <repeat group="{{ @rows }}" value="{{ @photos }}" key="{{ @user }}">
             <tr>
-                <td><a href="{{@BASE}}/commons/category/{{@category.search}}/{{ @row.user | raw,url }}">{{ @row['user'] }}</a></td>
-                <td>{{ @row['number'] }}</td>
+                <td><a href="{{@BASE}}/commons/category/{{ @category.search | putunderline }}/{{ @user | raw,url }}">{{ @user }}</a></td>
+                <td>{{ @photos }}</td>
             </tr>
         </repeat>
     </tbody>

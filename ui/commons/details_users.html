@@ -1,8 +1,8 @@
-<h2>Photos by {{@category.user}} in {{@category.name}}</h2>
+<h2>Photos by {{ @category.user }} in {{ @category.name }}</h2>
 <table class="table-bordered width-100">
     <thead>
         <th>#</th>
-        <th>Date</th>
+        <th>Name and Date</th>
         <th width="300">Thumbnail</th>
         <th>Data</th>
     </thead>
@@ -10,18 +10,18 @@
         <repeat group="{{ @rows }}" value="{{ @row }}" key="{{ @i }}">
             <tr>
                 <td>{{@i + 1}}</td>
-                <td>{{ @row.img_timestamp }}</td>
+                <td>{{ @row.img_name | nounderline }}<br />{{ @row.img_timestamp | american_time }}</td>
                 <td>
-                    <a href="https://commons.wikimedia.org/wiki/File:{{@row.img_name|raw}}" target="_blank">
+                    <a href="https://commons.wikimedia.org/wiki/File:{{ @row.img_name | raw }}" target="_blank">
     			<img src="https://commons.wikimedia.org/w/thumb.php?f={{ @row.img_name }}&amp;w=300" />
 			</a>
-                    <em>See on <a href="https://commons.wikimedia.org/wiki/File:{{@row.img_name|raw}}" target="_blank">Wikimedia Commons</a></em>
+                    <em>See on <a href="https://commons.wikimedia.org/wiki/File:{{ @row.img_name | raw }}" target="_blank">Wikimedia Commons</a></em>
                 </td>
                 <td>
                     <ul>
-                        <li>Size: {{ round(@row[img_size]/1024/1024, 4) }} Mb</li>
-                        <li>Dimensions: {{@row[img_width]}}x{{@row[img_height]}}</li>
-                        <li>Revisions: {{ @row[revs] }}</li>
+                        <li>Size: {{ @row.img_size | size }}</li>
+                        <li>Dimensions: {{ @row.img_width }}x{{ @row.img_height }}</li>
+                        <li>Revisions: {{ @row.revs }}</li>
                     </ul>
                 </td>
             </tr>

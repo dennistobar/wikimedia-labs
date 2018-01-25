@@ -2,11 +2,26 @@
 
 namespace route;
 
+use \model\commons\search;
+
 class commons extends main
 {
     public function index(\Base $fat)
     {
         $fat->set('page.contents', 'commons/index.html');
+    }
+
+    public function search(\Base $fat)
+    {
+        $options = ['cat' => $fat->get('PARAMS.category'), 'user' => $fat->get('PARAMS.user')];
+        if (is_null($options['user'])) {
+            $fat->set('page.contents', 'commons/users.html');
+            $fat->set('rows', search::resume($options));
+        } else {
+            $fat->set('page.contents', 'commons/details_users.html');
+            $fat->set('rows', search::search($options));
+        }
+        $fat->set('category', ['name' => $options['cat'], 'search' => $options['cat'], 'user' => $options['user']]);
     }
 
     public function category_redirect(\Base $fat)
@@ -15,24 +30,6 @@ class commons extends main
         $base = sprintf("%s://%s%s", $fat->get('SCHEME'), $fat->get('HOST'), $fat->get('BASE'));
         $fat->reroute($base.'/commons/category/'.$cat);
         return $fat;
-    }
-
-    public function category_search(\Base $fat)
-    {
-        $Category = \model\commons\category::load($fat->get('PARAMS.category'));
-        $users = $Category->users();
-        $fat->set('category', $Category->parameters());
-        $fat->set('rows', $users);
-        $fat->set('page.contents', 'commons/users.html');
-    }
-
-    public function category_user_search(\Base $fat)
-    {
-        $Category = \model\commons\category::load($fat->get('PARAMS.category'));
-        $users = $Category->details_user($fat->get('PARAMS.user'));
-        $fat->set('category', $Category->parameters());
-        $fat->set('rows', $users);
-        $fat->set('page.contents', 'commons/details_users.html');
     }
 
     public function beforeroute(\Base $fat)
