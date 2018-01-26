@@ -15,9 +15,11 @@ class searchBase
     {
         $select = [];
         $params = $params ?: self::$data;
-        foreach ($params as $param) {
+        foreach ($params as $key => $param) {
             if (array_key_exists($param, self::$data)) {
                 $select[] = self::$data[$param].' as '.$param;
+            } elseif (!is_numeric($key) && array_key_exists($key, self::$data)) {
+                $select[] = self::$data[$key].' as '.$key;
             } else {
                 $select[] = $param;
             }
