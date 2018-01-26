@@ -18,8 +18,14 @@ class commons extends main
             $fat->set('page.contents', 'commons/users.html');
             $fat->set('rows', search::resume($options));
         } else {
+            $data = search::search($options);
+            $data = array_map(function ($f) {
+                $f['commons'] = \helper\parsers::url_commons($f['img_name'], min([300, $f['img_width']]));
+                $f['url'] = urlencode($f['img_name']);
+                return $f;
+            }, $data);
             $fat->set('page.contents', 'commons/details_users.html');
-            $fat->set('rows', search::search($options));
+            $fat->set('rows', $data);
         }
         $fat->set('category', ['name' => $options['cat'], 'search' => $options['cat'], 'user' => $options['user']]);
     }

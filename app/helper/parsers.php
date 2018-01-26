@@ -15,4 +15,13 @@ class parsers
             'sec' => substr($string, 12, 2)
     ];
     }
+
+    public static function url_commons($file, $size = 300)
+    {
+        $file = formaters::instance()->putunderline($file);
+        $url = 'https://upload.wikimedia.org/wikipedia/commons/thumb/%s/%s/%s/%spx-%s';
+        $md5 = md5($file);
+
+        return sprintf($url, substr($md5, 0, 1), substr($md5, 0, 2), urlencode($file), $size, urlencode($file));
+    }
 }

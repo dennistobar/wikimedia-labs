@@ -12,10 +12,10 @@
                 <td>{{@i + 1}}</td>
                 <td>{{ @row.img_name | nounderline }}<br />{{ @row.img_timestamp | american_time }}</td>
                 <td>
-                    <a href="https://commons.wikimedia.org/wiki/File:{{ @row.img_name | raw }}" target="_blank">
-    			<img src="https://commons.wikimedia.org/w/thumb.php?f={{ @row.img_name }}&amp;w=300" />
-			</a>
-                    <em>See on <a href="https://commons.wikimedia.org/wiki/File:{{ @row.img_name | raw }}" target="_blank">Wikimedia Commons</a></em>
+                    <a href="https://commons.wikimedia.org/wiki/File:{{ @row.url  }}" target="_blank">
+                        <img src="{{ @row.commons | raw }}">
+                    </a>
+                    <em>See on <a href="https://commons.wikimedia.org/wiki/File:{{ @row.url | raw }}" target="_blank">Wikimedia Commons</a></em>
                 </td>
                 <td>
                     <ul>
