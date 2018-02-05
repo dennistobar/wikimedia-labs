@@ -8,7 +8,7 @@ class desafio extends main
 {
     public function index(\Base $fat)
     {
-        $fat->set('Desafios', DesafioModel::instance()->find());
+        $fat->set('Desafios', DesafioModel::instance()->find([], ['order' => 'desafio_start']));
         $fat->set('page.title', 'Desafíos de edición en Wikipedia en español');
         $fat->set('page.subtitle', 'Visión global');
         $fat->set('page.contents', 'desafio/listado.html');
