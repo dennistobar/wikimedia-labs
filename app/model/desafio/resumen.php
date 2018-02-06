@@ -46,7 +46,7 @@ class resumen
     {
         $qDays = "select distinct tabla_fecha from tabla_resumen where tabla_desafio = :desafio order by 1";
         $days = \model\database::instance('tools', \F3::get('db.user').'__desafio')->exec($qDays, ['desafio' => $this->name]);
-        setlocale(LC_ALL, 'es_CL');
+        setlocale(LC_ALL, 'es_CL.utf8');
         foreach ($days as &$day) {
             $day_parser = \helper\parsers::timestamp($day['tabla_fecha']);
             $day['name'] = strftime('%e de %B', mktime(0, 0, 0, $day_parser['month'], $day_parser['day'], $day_parser['year']));
