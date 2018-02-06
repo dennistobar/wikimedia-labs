@@ -2,8 +2,8 @@
 {|style="margin: 0 auto" class="wikitable sortable"
 |-
 ! Categoría !! Actual <repeat group="{{@days}}" value="{{@day}}">!! {{@day.name}} </repeat> !! Evolución
-<repeat group="{{@data}}" value="{{@row}}">
 
+<repeat group="{{@data}}" value="{{@row}}">
 |-
 | {{@row.title}}
 
@@ -15,5 +15,6 @@
 
 | style="text-align: right; background-color: {{@row.evolucion <= 0 ? 'PaleGreen' : 'IndianRed'}}"| {{@row.evolucion}}
 </repeat>
+
 |}
 </textarea>

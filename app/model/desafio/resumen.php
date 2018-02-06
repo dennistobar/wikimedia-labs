@@ -49,7 +49,7 @@ class resumen
         setlocale(LC_ALL, 'es_CL.utf8');
         foreach ($days as &$day) {
             $day_parser = \helper\parsers::timestamp($day['tabla_fecha']);
-            $day['name'] = strftime('%e de %B', mktime(0, 0, 0, $day_parser['month'], $day_parser['day'], $day_parser['year']));
+            $day['name'] = $day_parser['day'].' de '.\helper\parsers::mes((int)$day_parser['month']-1);
         }
         setlocale(LC_ALL, '');
         return $days;
