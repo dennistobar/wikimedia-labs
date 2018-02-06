@@ -5,6 +5,7 @@
 
 <repeat group="{{@data}}" value="{{@row}}">
 |-
+
 | {{@row.title}}
 
 | style="text-align: right" | {{@row.actual}}
@@ -14,7 +15,7 @@
 </repeat>
 
 | style="text-align: right; background-color: {{@row.evolucion <= 0 ? 'PaleGreen' : 'IndianRed'}}"| {{@row.evolucion}}
-</repeat>
 
+</repeat>
 |}
 </textarea>
