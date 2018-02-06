@@ -1,19 +1,15 @@
 <textarea cols="80" rows="15">
 {|style="margin: 0 auto" class="wikitable sortable"
 |-
-! Categoría !! Actual !! 5 de junio !! 10 de junio !! 15 de junio !! 20 de junio !! 23 de junio !! Evolución
+! Categoría !! Actual <repeat group="{{@days}}" value="{{@day}}">!! {{@day.name}} </repeat> !! Evolución
 <repeat group="{{@data}}" value="{{@row}}">
 |-
 | {{@row.title}}
-
 | style="text-align: right" | {{@row.actual}}
-
-<repeat group="{{['05','10','15','20','23']}}" value="{{@day}}">
-| style="text-align: right" | {{@row['201706'.@day]}}
-
+<repeat group="@row.date_raw" value="{{@value}}">
+| style="text-align: right" | {{@value}}
 </repeat>
-| style="text-align: right; background-color: {{@row.evolucion < 0 ? 'PaleGreen' : 'IndianRed'}}"| {{@row.evolucion}}
-
+| style="text-align: right; background-color: {{@row.evolucion <= 0 ? 'PaleGreen' : 'IndianRed'}}"| {{@row.evolucion}}
 </repeat>
 |}
 </textarea>

@@ -41,8 +41,9 @@ class desafio extends main
 
     public function resume(\Base $fat)
     {
-        $data = \model\desafio\categoria::resumen();
-        $fat->set('data', $data);
+        $Resumen = new \model\desafio\resumen($fat->get('PARAMS.name'));
+        $fat->set('data', $Resumen->data());
+        $fat->set('days', $Resumen->days());
         $fat->set('page.subtitle', 'Tabla resumen para Wikipedia');
         $fat->set('page.contents', 'desafio/resume.html');
     }
