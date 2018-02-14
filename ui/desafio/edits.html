@@ -18,12 +18,4 @@
             </tr>
         </repeat>
     </tbody>
-    <tfoot>
-        <tr>
-            <th>Total</th>
-            <td class="has-text-right">{{array_sum(array_column(@days, 'articles')) | number }}</td>
-            <td class="has-text-right">{{array_sum(array_column(@days, 'edits')) | number }}</td>
-            <td class="has-text-right">{{array_sum(array_column(@days, 'size')) | number}}</td>
-        </tr>
-    </tfoot>
 </table>

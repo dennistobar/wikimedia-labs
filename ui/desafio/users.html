@@ -23,4 +23,12 @@
             </tr>
         </repeat>
     </tbody>
+    <tfoot>
+        <tr>
+            <th colspan="2">Total</th>
+            <td class="has-text-right">{{array_sum(array_column(@ranking, 'articles')) | number }}</td>
+            <td class="has-text-right">{{array_sum(array_column(@ranking, 'edits')) | number }}</td>
+            <td class="has-text-right">{{array_sum(array_column(@ranking, 'size')) | number}}</td>
+        </tr>
+    </tfoot>
 </table>

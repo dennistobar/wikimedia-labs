@@ -46,12 +46,10 @@ class resumen
     {
         $qDays = "select distinct tabla_fecha from tabla_resumen where tabla_desafio = :desafio order by 1";
         $days = \model\database::instance('tools', \F3::get('db.user').'__desafio')->exec($qDays, ['desafio' => $this->name]);
-        setlocale(LC_ALL, 'es_CL.utf8');
         foreach ($days as &$day) {
             $day_parser = \helper\parsers::timestamp($day['tabla_fecha']);
-            $day['name'] = $day_parser['day'].' de '.\helper\parsers::mes((int)$day_parser['month']-1);
+            $day['name'] = (int)$day_parser['day'].' de '.\helper\parsers::mes((int)$day_parser['month']-1);
         }
-        setlocale(LC_ALL, '');
         return $days;
     }
 }
