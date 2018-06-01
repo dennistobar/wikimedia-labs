@@ -24,7 +24,7 @@ class cron
             from eswiki_p.recentchanges
             where rc_id > 0 and
                 rc_namespace in (0, 104) and
-                lower(rc_comment) like :string and
+                LOWER(CONVERT(rc_comment USING utf8))  like :string and
                 rc_timestamp between :max and :end and
                 rc_user > 5 and
                 rc_new = 0 and
