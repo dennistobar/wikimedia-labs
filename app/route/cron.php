@@ -16,7 +16,7 @@ class cron
         $desafio = new desafio;
         $timestamp = date('YmdHis');
 
-        $desafios = $desafio->select('desafio_name, desafio_end', ['? between desafio_start and desafio_end', $timestamp]);
+        $desafios = $desafio->select('desafio_name, desafio_start, desafio_end', ['? between desafio_start and desafio_end', $timestamp]);
         $return = [];
         foreach ($desafios as $r_desafio) {
             $qData = 'select rc_id, rc_timestamp, rc_user, rc_user_text, rc_namespace, rc_title
@@ -31,6 +31,7 @@ class cron
                 rc_bot = 0;';
 
             $fecha = min([(int)$max+1, (int)(new \DateTime('-1 hour', new \DateTimeZone('UTC')))->format('YmdHis')]);
+            $fecha = $fecha < $r_desafio['desafio_start'] ? $fecha : $r_desafio['desafio_start'];
 
             $pData = ['max' => $fecha, 'string' => '%#'.$r_desafio['desafio_name'].'%', 'end' => $r_desafio['desafio_end'], 'desafio' => $r_desafio['desafio_name']];
             $qInsert = "Insert into ediciones
