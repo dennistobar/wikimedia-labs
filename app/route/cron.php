@@ -30,7 +30,7 @@ class cron
                 rc_new = 0 and
                 rc_bot = 0;';
 
-            $fecha = min([(int)$max+1, (int)(new \DateTime('-1 hour', new \DateTimeZone('UTC')))->format('YmdHis')]);
+            $fecha = max([(int)$max+1, (int)(new \DateTime('-1 hour', new \DateTimeZone('UTC')))->format('YmdHis')]);
             $fecha = $fecha > $r_desafio['desafio_start'] ? $fecha : $r_desafio['desafio_start'];
 
             $pData = ['max' => $fecha, 'string' => '%#'.$r_desafio['desafio_name'].'%', 'end' => $r_desafio['desafio_end'], 'desafio' => $r_desafio['desafio_name']];
