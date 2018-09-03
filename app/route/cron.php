@@ -30,7 +30,7 @@ class cron
                 rc_new = 0 and
                 rc_bot = 0;';
 
-            $fecha = max([(int)$max+1, (int)(new \DateTime('-1 hour', new \DateTimeZone('UTC')))->format('YmdHis')]);
+            $fecha = min([(int)$max+1, (int)(new \DateTime('-1 hour', new \DateTimeZone('UTC')))->format('YmdHis')]);
             $fecha = $fecha > $r_desafio['desafio_start'] ? $fecha : $r_desafio['desafio_start'];
 
             $pData = ['max' => $fecha, 'string' => '%#'.$r_desafio['desafio_name'].'%', 'end' => $r_desafio['desafio_end'], 'desafio' => $r_desafio['desafio_name']];
@@ -42,7 +42,7 @@ class cron
                 $i++;
                 $dest->exec($qInsert, $item);
             }
-            $return[$r_desafio['desafio_name']] = ['start' => $fecha, 'edits' => count($changes), 'max' => $max];
+            $return[$r_desafio['desafio_name']] = ['min' => $fecha, 'edits' => count($changes), 'max' => $r_desafio['desafio_end']];
         }
 
         header('Content-type: application/json');
