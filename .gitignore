@@ -5,3 +5,5 @@ tmp/
 vendor/
 *.lock
 *.phar
+.vscode
+.solarlint

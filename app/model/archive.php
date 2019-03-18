@@ -54,11 +54,19 @@ class archive
             $links = new \ArrayObject($page->extlinks);
             foreach ($links as $link) {
                 $url = $link->{'*'};
+                if (self::isLink($url) === false) {
+                    continue;
+                }
                 $objetive[]['url'] = $url;
             }
         }
         $objetive = array_map([self::class, 'checkURL'], $objetive);
         $objetive = array_map([self::class, 'checkArchiveStatus'], $objetive);
-        return array_map([self, 'sendArchive'], $objetive);
+        return array_map([self::class, 'sendArchive'], $objetive);
+    }
+
+    public static function isLink($url)
+    {
+        return filter_var($url, FILTER_VALIDATE_URL);
     }
 }
