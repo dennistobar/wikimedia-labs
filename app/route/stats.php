@@ -23,8 +23,8 @@ class stats extends main
     public function beforeroute(\Base $fat)
     {
         $fat->set('page.title', 'Wiki Loves (Whatever)');
-        if($fat->exists('POST.category')){
-            $fat->set('page.subtitle', 'Commons category: '.$fat->get('POST.category'));
+        if ($fat->exists('POST.category')) {
+            $fat->set('page.subtitle', 'Commons category: ' . $fat->get('POST.category'));
         }
     }
 }

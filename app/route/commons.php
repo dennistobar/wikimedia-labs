@@ -28,7 +28,7 @@ class commons extends main
     {
         $cat = str_replace(" ", "_", $fat->get('POST.category'));
         $base = sprintf("%s://%s%s", $fat->get('SCHEME'), $fat->get('HOST'), $fat->get('BASE'));
-        $fat->reroute($base.'/commons/category/'.$cat);
+        $fat->reroute($base . '/commons/category/' . $cat);
         return $fat;
     }
 

@@ -7,7 +7,6 @@ class stats
     private $params;
     private $cost;
 
-
     public function __construct($category, $initial, $final, $cost)
     {
         $this->params = ['cat' => $category, 'ini' => self::date($initial), 'fin' => self::date($final, false)];
@@ -18,16 +17,16 @@ class stats
     {
         $data = $this->getUsers();
         $tmp = [
-        'users' => count(array_column($data, 'user_name')),
-        'uploads' => array_sum(array_column($data, 'uploads')),
-        'newbies' => array_sum(array_column($data, 'newbie'))
+            'users' => count(array_column($data, 'user_name')),
+            'uploads' => array_sum(array_column($data, 'uploads')),
+            'newbies' => array_sum(array_column($data, 'newbie')),
         ];
-        $tmp['rate_newbies'] = $tmp['newbies']/($tmp['users'] ?: 1);
+        $tmp['rate_newbies'] = $tmp['newbies'] / ($tmp['users'] ?: 1);
         $upl_newbie = array_filter($data, function ($f) {
             return $f['newbie'] === '1';
         });
         $tmp['newbie_uploads'] = array_sum(array_column($upl_newbie, 'uploads'));
-        $tmp['rate_newbies_uploads'] = $tmp['newbie_uploads']/($tmp['uploads'] ?: 1);
+        $tmp['rate_newbies_uploads'] = $tmp['newbie_uploads'] / ($tmp['uploads'] ?: 1);
         $tmp['percentile_25'] = self::getPercentile(25, array_column($data, 'uploads'));
         $tmp['percentile_50'] = self::getPercentile(50, array_column($data, 'uploads'));
         $tmp['percentile_75'] = self::getPercentile(75, array_column($data, 'uploads'));
@@ -61,18 +60,18 @@ class stats
 
     public static function date($date, $initial = true)
     {
-        return str_replace('-', '', $date).($initial ? '000000' : '235959');
+        return str_replace('-', '', $date) . ($initial ? '000000' : '235959');
     }
 
     /** http://stackoverflow.com/a/24049361 **/
     public function getPercentile($percentile, $array)
     {
         sort($array);
-        $index = ($percentile/100) * count($array);
+        $index = ($percentile / 100) * count($array);
         $idx = ceil($index);
         return [
-            'sum' => array_sum(array_slice($array, 0, $idx > count($array) ? $idx -1 : $idx)),
-            'count' => count(array_slice($array, 0, $idx > count($array) ? $idx -1 : $idx))
-            ];
+            'sum' => array_sum(array_slice($array, 0, $idx > count($array) ? $idx - 1 : $idx)),
+            'count' => count(array_slice($array, 0, $idx > count($array) ? $idx - 1 : $idx)),
+        ];
     }
 }

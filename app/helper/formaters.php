@@ -22,23 +22,23 @@ class formaters extends \Prefab
     public function timestamp($string)
     {
         $timestamp = parsers::timestamp($string);
-        return implode("-", [$timestamp['day'], $timestamp['month'], $timestamp['year']]).' '
-            .implode(":", [$timestamp['hour'], $timestamp['minute']]);
+        return implode("-", [$timestamp['day'], $timestamp['month'], $timestamp['year']]) . ' '
+        . implode(":", [$timestamp['hour'], $timestamp['minute']]);
     }
 
     public function american_timestamp($string)
     {
         $timestamp = parsers::timestamp($string);
-        return implode("-", [$timestamp['year'], $timestamp['month'], $timestamp['day']]).' '
-            .implode(":", [$timestamp['hour'], $timestamp['minute'], $timestamp['sec']]);
+        return implode("-", [$timestamp['year'], $timestamp['month'], $timestamp['day']]) . ' '
+        . implode(":", [$timestamp['hour'], $timestamp['minute'], $timestamp['sec']]);
     }
 
     public function size($string)
     {
         $sizes = ['', 'K', 'M', 'G', 'T'];
-        $size = (int)$string;
-        for ($i = 1; ($size_return = $size / pow(1024, $i+1)) > 1; $i++);
-        return round($size_return*1024, 2).' '.$sizes[$i].'B';
+        $size = (int) $string;
+        for ($i = 1; ($size_return = $size / pow(1024, $i + 1)) > 1; $i++);
+        return round($size_return * 1024, 2) . ' ' . $sizes[$i] . 'B';
     }
 
     public function number($string)

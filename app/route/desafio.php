@@ -26,7 +26,7 @@ class desafio extends main
     {
         $fat->set('contribs', \model\desafio\ediciones::user($fat->get('PARAMS.name'), $fat->get('PARAMS.user')));
         $fat->set('stats', \model\desafio\ediciones::user_stats($fat->get('PARAMS.name'), $fat->get('PARAMS.user')));
-        $fat->set('page.subtitle', 'Contribuciones de usuario '.\helper\formaters::instance()->nounderline($fat->get('PARAMS.user')));
+        $fat->set('page.subtitle', 'Contribuciones de usuario ' . \helper\formaters::instance()->nounderline($fat->get('PARAMS.user')));
         $fat->set('page.contents', 'desafio/usercontrib.html');
     }
 
@@ -35,7 +35,7 @@ class desafio extends main
         $dia = \helper\parsers::timestamp($fat->get('PARAMS.day'));
         $fat->set('contribs', \model\desafio\ediciones::day($fat->get('PARAMS.name'), $fat->get('PARAMS.day'), $fat->get('PARAMS.user')));
         $fat->set('day', implode('-', [$dia['day'], $dia['month'], $dia['year']]));
-        $fat->set('page.subtitle', 'Contribuciones del día '.$fat->get('day'));
+        $fat->set('page.subtitle', 'Contribuciones del día ' . $fat->get('day'));
         $fat->set('page.contents', 'desafio/day.html');
     }
 
@@ -62,8 +62,8 @@ class desafio extends main
             $fat->set('desafio', $desafio);
             if ($desafio->has_resumen()) {
                 $menu = [
-                    ['href' => $fat->get('BASE').'/desafio/'.$name, 'txt' => 'General'],
-                    ['href' => $fat->get('BASE').'/desafio/'.$name.'/resumen', 'txt' => 'Tabla de categoría'],
+                    ['href' => $fat->get('BASE') . '/desafio/' . $name, 'txt' => 'General'],
+                    ['href' => $fat->get('BASE') . '/desafio/' . $name . '/resumen', 'txt' => 'Tabla de categoría'],
                 ];
                 $menu = array_map(function ($f) use ($fat) {
                     $f['classCSS'] = $fat->get('PATH') === $f['href'] ? 'is-active' : '';

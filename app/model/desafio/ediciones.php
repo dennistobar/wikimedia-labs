@@ -6,7 +6,7 @@ class ediciones extends \DB\SQL\Mapper
 {
     public function __construct()
     {
-        parent::__construct(\model\database::instance('tools', \F3::get('db.user').'__desafio'), 'ediciones');
+        parent::__construct(\model\database::instance('tools', \F3::get('db.user') . '__desafio'), 'ediciones');
     }
 
     public static function instance()
@@ -40,7 +40,7 @@ class ediciones extends \DB\SQL\Mapper
     {
         $edits = self::user($desafio, $user);
         $bytes = array_sum(array_map(function ($edit) {
-            return (int)$edit['rc_size_abs'];
+            return (int) $edit['rc_size_abs'];
         }, $edits));
         $articles = count(array_unique(array_map(function ($edit) {
             return $edit['rc_title'];

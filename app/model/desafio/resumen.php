@@ -26,14 +26,14 @@ class resumen
 
         $qDates = "select min(tabla_fecha) minimo, max(tabla_fecha) maximo from tabla_resumen where tabla_desafio = :desafio";
 
-        $rows = \model\database::instance('tools', \F3::get('db.user').'__desafio')->exec($qCat, ['desafio' => $this->name]);
-        $dates = \model\database::instance('tools', \F3::get('db.user').'__desafio')->exec($qDates, ['desafio' => $this->name]);
+        $rows = \model\database::instance('tools', \F3::get('db.user') . '__desafio')->exec($qCat, ['desafio' => $this->name]);
+        $dates = \model\database::instance('tools', \F3::get('db.user') . '__desafio')->exec($qDates, ['desafio' => $this->name]);
         $date = array_pop($dates);
         $retorno = [];
         foreach ($rows as $row) {
             $retorno[$row['title']]['title'] = $row['title'];
-            $retorno[$row['title']]['date_raw'][$row['tabla_fecha']] = is_numeric($row['tabla_valor']) ? (int)$row['tabla_valor'] : null;
-            $retorno[$row['title']]['last'] = !is_null($row['tabla_valor']) ? (int)$row['tabla_valor'] : (int)$retorno[$row['title']]['last'];
+            $retorno[$row['title']]['date_raw'][$row['tabla_fecha']] = is_numeric($row['tabla_valor']) ? (int) $row['tabla_valor'] : null;
+            $retorno[$row['title']]['last'] = !is_null($row['tabla_valor']) ? (int) $row['tabla_valor'] : (int) $retorno[$row['title']]['last'];
             $retorno[$row['title']]['actual'] = $row['actual'];
         }
         return array_map(function ($f) use ($date) {
@@ -45,10 +45,10 @@ class resumen
     public function days()
     {
         $qDays = "select distinct tabla_fecha from tabla_resumen where tabla_desafio = :desafio order by 1";
-        $days = \model\database::instance('tools', \F3::get('db.user').'__desafio')->exec($qDays, ['desafio' => $this->name]);
+        $days = \model\database::instance('tools', \F3::get('db.user') . '__desafio')->exec($qDays, ['desafio' => $this->name]);
         foreach ($days as &$day) {
             $day_parser = \helper\parsers::timestamp($day['tabla_fecha']);
-            $day['name'] = (int)$day_parser['day'].' de '.\helper\parsers::mes((int)$day_parser['month']-1);
+            $day['name'] = (int) $day_parser['day'] . ' de ' . \helper\parsers::mes((int) $day_parser['month'] - 1);
         }
         return $days;
     }

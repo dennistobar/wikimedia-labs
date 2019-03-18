@@ -8,7 +8,7 @@ class searchBase
         'user' => 'ifnull(oi_user_text, img_user_text)',
         'revs' => '(select count(distinct oi_timestamp) from oldimage where oi_name = img_name)',
         'img_name', 'img_size', 'img_timestamp', 'img_width', 'img_height',
-        'user_registration'
+        'user_registration',
     ];
 
     public static function select($params = [], $options = [])
@@ -17,16 +17,16 @@ class searchBase
         $params = $params ?: self::$data;
         foreach ($params as $key => $param) {
             if (array_key_exists($param, self::$data)) {
-                $select[] = self::$data[$param].' as '.$param;
+                $select[] = self::$data[$param] . ' as ' . $param;
             } elseif (!is_numeric($key) && array_key_exists($key, self::$data)) {
-                $select[] = self::$data[$key].' as '.$key;
+                $select[] = self::$data[$key] . ' as ' . $key;
             } else {
                 $select[] = $param;
             }
         }
 
         $qDetails = '
-            select '.implode(',', $select).'
+            select ' . implode(',', $select) . '
             from page, image
             left join oldimage o1
                 on oi_name = img_name

@@ -12,8 +12,8 @@ class parsers
             'day' => substr($string, 6, 2),
             'hour' => substr($string, 8, 2),
             'minute' => substr($string, 10, 2),
-            'sec' => substr($string, 12, 2)
-    ];
+            'sec' => substr($string, 12, 2),
+        ];
     }
 
     public static function mes($mes)
