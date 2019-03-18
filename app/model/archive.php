@@ -54,7 +54,7 @@ class archive
             $links = new \ArrayObject($page->extlinks);
             foreach ($links as $link) {
                 $url = $link->{'*'};
-                if (self::isLink($url) === false) {
+                if (self::isLink($url) === false || self::isWikidata($url) === true) {
                     continue;
                 }
                 $objetive[]['url'] = $url;
@@ -68,5 +68,10 @@ class archive
     public static function isLink($url)
     {
         return filter_var($url, FILTER_VALIDATE_URL);
+    }
+
+    public static function isWikidata($url)
+    {
+        return stripos($url, '//www.wikidata.org/') !== false;
     }
 }
