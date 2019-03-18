@@ -14,11 +14,11 @@ class hook
     public static function run($hook)
     {
         if (!isset(self::$hooks[$hook])) {
-            return ;
+            return;
         }
         foreach (self::$hooks[$hook] as $el) {
             call_user_func($el[0], $el[1]);
         }
-        return ;
+        return;
     }
 }

@@ -18,11 +18,11 @@ class archive
     {
         $status = $array['status'];
         if (!!array_filter($array['status']) === true) {
-            $request = \Web::instance()->request('http://archive.org/wayback/available?url='.$array['url']);
+            $request = \Web::instance()->request('http://archive.org/wayback/available?url=' . $array['url']);
             $api_archive = json_decode($request['body']);
             $status['archive'] = isset($api_archive->archived_snapshots->closest->timestamp) ?
-                \DateTime::createFromFormat('YmdHis', $api_archive->archived_snapshots->closest->timestamp)
-                 : false;
+            \DateTime::createFromFormat('YmdHis', $api_archive->archived_snapshots->closest->timestamp)
+            : false;
         } else {
             $status['archive'] = false;
         }
@@ -34,7 +34,7 @@ class archive
     {
         $status = $array['status'];
         if ($status['http'] === true && ($status['archive'] === false || $status['archive']->diff(new \DateTime(), true)->days > 180)) {
-            $headers = \Web::instance()->request('http://web.archive.org/save/'.$array['url'])['headers'];
+            $headers = \Web::instance()->request('http://web.archive.org/save/' . $array['url'])['headers'];
             $array['status']['sent'] = !!array_filter($headers, function ($head) {
                 return stripos($head, '200 OK');
             });
@@ -57,8 +57,8 @@ class archive
                 $objetive[]['url'] = $url;
             }
         }
-        $objetive = array_map([self, 'checkURL'], $objetive);
-        $objetive = array_map([self, 'checkArchiveStatus'], $objetive);
+        $objetive = array_map([self::class, 'checkURL'], $objetive);
+        $objetive = array_map([self::class, 'checkArchiveStatus'], $objetive);
         return array_map([self, 'sendArchive'], $objetive);
     }
 }
