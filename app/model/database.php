@@ -18,7 +18,7 @@ class database extends \DB\SQL
         if (is_null(self::$instance[md5($server . $database)])) {
             $database = stripos($database, 'wiki') !== false ? $database . '_p' : $database;
             $port = self::setMyPort($server);
-            $dns = sprintf('mysql:host=%s.labsdb:%s;dbname=%s', $server, $port, $database);
+            $dns = sprintf('mysql:host=%s.labsdb:%d;dbname=%s', $server, $port, $database);
             self::$instance[md5($server . $database)] = new \DB\SQL($dns, \F3::get('db.user'), \F3::get('db.password'));
         }
         return self::$instance[md5($server . $database)];
