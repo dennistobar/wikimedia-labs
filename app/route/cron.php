@@ -72,4 +72,32 @@ class cron
             $pCategoria->save();
         }
     }
+
+    public static function cronMujeres(\Base $fat)
+    {
+        $origin = \model\database::instance('commonswiki', 'eswiki');
+        $dest = \model\database::instance('tools', \F3::get('db.user') . '__desafio');
+        $query = "select page_id, ips_item_id as wikidata_item
+            from revision, categorylinks, page
+            left join wikidatawiki_p.wb_items_per_site on ips_site_id = 'eswiki' and ips_site_page = replace(page_title, '_', ' ')
+            where page_id = rev_page
+            and rev_timestamp between '20190307000000' and '20190409000000'
+            and rev_parent_id = 0
+            and page_namespace = 0
+            and cl_from = page_id
+            and cl_to = 'Mujeres'
+            and cl_timestamp > '20190307000000'";
+
+        $changes = $origin->exec($query);
+        $i = 0;
+        foreach ($changes as $change) {
+            $qInsert = "Insert into mujeres
+            select :page_id, :wikidata_item from dual
+            where not exists (select 1 from mujeres where page_id = :page_id) limit 1";
+            $changes = $origin->exec($qInsert, $change);
+            $i++;
+        }
+        header('Content-type: application/json');
+        echo json_encode([$i]);
+    }
 }
