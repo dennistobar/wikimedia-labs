@@ -2,7 +2,10 @@
 
 namespace route;
 
-use \model\desafio\desafio;
+use function GuzzleHttp\json_encode;
+use helper\Entity;
+use model\mujer\mujeres;
+use model\mujer\origin;
 
 class cron
 {
@@ -75,29 +78,39 @@ class cron
 
     public static function cronMujeres(\Base $fat)
     {
-        $origin = \model\database::instance('commonswiki', 'eswiki');
         $dest = \model\database::instance('tools', \F3::get('db.user') . '__desafio');
-        $query = "select page_id, ips_item_id as wikidata_item
-            from revision, categorylinks, page
-            left join wikidatawiki_p.wb_items_per_site on ips_site_id = 'eswiki' and ips_site_page = replace(page_title, '_', ' ')
-            where page_id = rev_page
-            and rev_timestamp between '20190307000000' and '20190409000000'
-            and rev_parent_id = 0
-            and page_namespace = 0
-            and cl_from = page_id
-            and cl_to = 'Mujeres'
-            and cl_timestamp > '20190307000000'";
+        $origen = new origin;
+        $origen->setParameters('20190307000000', '20190408000000');
+        $changes = $origen->getData(null);
 
-        $changes = $origin->exec($query);
-        $i = 0;
+        $inserted = 0;
         foreach ($changes as $change) {
-            $qInsert = "Insert into mujeres
+            $qInsert = "UPDATE mujeres SET wikidata_item = :wikidata_item WHERE page_id = :page_id and wikidata_item is null;
+            Insert into mujeres (page_id, wikidata_item)
             select :page_id, :wikidata_item from dual
             where not exists (select 1 from mujeres where page_id = :page_id) limit 1";
-            $changes = $origin->exec($qInsert, $change);
-            $i++;
+            $changes = $dest->exec($qInsert, $change);
+            $inserted++;
+        }
+
+        header('Content-type: application/json');
+        echo json_encode(['inserted' => $inserted]);
+    }
+
+    public static function populateMujeres(\Base $fat)
+    {
+        $mujeres = mujeres::getWihtoutCitizenship();
+        $wikidata = new Entity;
+        $changed = 0;
+        foreach ($mujeres as $mujer) {
+            $property = $wikidata->getCitizenship($mujer->wikidata_item);
+            if (!!$property) {
+                $mujer->aditional_info = $property;
+            }
+            $changed += (int) $mujer->changed();
+            $mujer->changed() ? $mujer->update() : '';
         }
         header('Content-type: application/json');
-        echo json_encode([$i]);
+        echo json_encode(['selected' => count($mujeres), 'changed' => $changed]);
     }
 }

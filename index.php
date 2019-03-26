@@ -35,6 +35,7 @@ $cron = \Cron::instance();
 $cron->set('jobDesafio', 'route\cron::cronSQL', '*/5 * * * *');
 $cron->set('jobCategories', 'route\cron::cronCategories', '* */6 * * *');
 $cron->set('jobMujeres', 'route\cron::cronMujeres', '* */6 * * *');
+$cron->set('jobPopulateMujeres', 'route\cron::populateMujeres', '* */6 * * *');
 $cron->web = true;
 
 /* Internet Archive */
