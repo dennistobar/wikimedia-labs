@@ -9,7 +9,7 @@ use model\mujer\origin;
 
 class cron
 {
-    public static function cronSQL(\Base $fat)
+    public static function cronSQL()
     {
         $origin = \model\database::instance('commonswiki', 'commonswiki');
         $dest = \model\database::instance('tools', \F3::get('db.user') . '__desafio');
@@ -53,7 +53,7 @@ class cron
         echo json_encode($return);
     }
 
-    public static function cronCategories(\Base $fat)
+    public static function cronCategories()
     {
         $categorias = ['Wikipedia:Artículos sin contextualizar', 'Wikipedia:Artículos que necesitan referencias', 'Wikipedia:Wikificar'
             , 'Wikipedia:Traducción automática', 'Wikipedia:Traducciones para mejorar', 'Wikipedia:Artículos desactualizados', 'Wikipedia:Artículos que necesitan formato correcto de referencias'
@@ -76,18 +76,20 @@ class cron
         }
     }
 
-    public static function cronMujeres(\Base $fat)
+    public static function cronMujeres()
     {
         $dest = \model\database::instance('tools', \F3::get('db.user') . '__desafio');
         $origen = new origin;
-        $origen->setParameters('20190307000000', '20190408000000');
+        $origen->setParameters('20190301000000', '20190408000000');
         $changes = $origen->getData(null);
 
         $inserted = 0;
         foreach ($changes as $change) {
-            $qInsert = "UPDATE mujeres SET wikidata_item = :wikidata_item WHERE page_id = :page_id and wikidata_item is null;
-            Insert into mujeres (page_id, wikidata_item)
-            select :page_id, :wikidata_item from dual
+            $qInsert = "UPDATE mujeres
+                SET wikidata_item = :wikidata_item, `timestamp` = :rev_timestamp
+                WHERE page_id = :page_id;
+            Insert into mujeres (page_id, wikidata_item, `timestamp`)
+            select :page_id, :wikidata_item, :rev_timestamp from dual
             where not exists (select 1 from mujeres where page_id = :page_id) limit 1";
             $changes = $dest->exec($qInsert, $change);
             $inserted++;
@@ -97,7 +99,7 @@ class cron
         echo json_encode(['inserted' => $inserted]);
     }
 
-    public static function populateMujeres(\Base $fat)
+    public static function populateMujeres()
     {
         $mujeres = mujeres::getWihtoutCitizenship();
         $wikidata = new Entity;
@@ -105,7 +107,7 @@ class cron
         foreach ($mujeres as $mujer) {
             $property = $wikidata->getCitizenship($mujer->wikidata_item);
             if (!!$property) {
-                $mujer->aditional_info = $property;
+                $mujer->country = $property;
             }
             $changed += (int) $mujer->changed();
             $mujer->changed() ? $mujer->update() : '';

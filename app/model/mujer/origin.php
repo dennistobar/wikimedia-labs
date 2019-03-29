@@ -21,7 +21,7 @@ class origin
 
     public function getData($page = null)
     {
-        $query = "select page_id, ips_item_id as wikidata_item
+        $query = "select page_id, ips_item_id as wikidata_item, rev_timestamp
         from revision, categorylinks, page
         left join wikidatawiki_p.wb_items_per_site on ips_site_id = 'eswiki' and ips_site_page = replace(page_title, '_', ' ')
         where page_id = rev_page

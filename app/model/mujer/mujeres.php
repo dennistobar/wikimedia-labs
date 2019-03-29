@@ -21,6 +21,6 @@ class mujeres extends \DB\SQL\Mapper
 
     public static function getWihtoutCitizenship()
     {
-        return self::instance()->find(['aditional_info is null', 'wikidata_item is not null'], ['limit' => 100, 'order' => 'rand()']);
+        return self::instance()->find(['country is null', 'wikidata_item is not null'], ['limit' => 100, 'order' => 'rand()']);
     }
 }
