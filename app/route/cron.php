@@ -80,18 +80,21 @@ class cron
     {
         $dest = \model\database::instance('tools', \F3::get('db.user') . '__desafio');
         $origen = new origin;
+        $mujeres = new mujeres;
         $origen->setParameters('20190301000000', '20190408000000');
         $changes = $origen->getData(null);
 
         $inserted = 0;
         foreach ($changes as $change) {
-            $qInsert = "UPDATE mujeres
-                SET wikidata_item = :wikidata_item, `timestamp` = :rev_timestamp
-                WHERE page_id = :page_id;
-            Insert into mujeres (page_id, wikidata_item, `timestamp`)
-            select :page_id, :wikidata_item, :rev_timestamp from dual
-            where not exists (select 1 from mujeres where page_id = :page_id) limit 1";
-            $changes = $dest->exec($qInsert, $change);
+            $mujer = $mujeres->load(['page_id = ' . $change['page_id']]);
+            if (!!$mujer === true) {
+                $mujer->wikidata_item = $change['wikidata_item'];
+            } else {
+                $mujer = new mujeres;
+                $mujer->wikidata_item = $change['wikidata_item'];
+                $mujer->page_id = $change['page_id'];
+            }
+            $mujer->save();
             $inserted++;
         }
 

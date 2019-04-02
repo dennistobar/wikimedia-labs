@@ -16,6 +16,9 @@ class Entity extends WikidataWikidata
     public function getCitizenship(int $item): string
     {
         $entity = $this->get('Q' . $item, 'es');
+        if (is_null($entity->properties)) {
+            return '';
+        }
         $properties = $entity->properties->toArray();
         return $properties['P27']->value ?? '';
     }
