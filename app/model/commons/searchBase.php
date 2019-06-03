@@ -5,7 +5,7 @@ namespace model\commons;
 class searchBase
 {
     private static $data = [
-        'user' => 'ifnull(oi_user_text, img_user_text)',
+        'user' => 'user_name',
         'revs' => '(select count(distinct oi_timestamp) from oldimage where oi_name = img_name)',
         'img_name', 'img_size', 'img_timestamp', 'img_width', 'img_height',
         'user_registration',
@@ -26,20 +26,18 @@ class searchBase
         }
 
         $qDetails = '
-            select ' . implode(',', $select) . '
-            from page, image
-            left join oldimage o1
-                on oi_name = img_name
-                and oi_timestamp = (select min(o2.oi_timestamp) from oldimage o2 where o1.oi_name = o2.oi_name)
-            left join `user`
-                on user_id = ifnull(oi_user, img_user)
-            , categorylinks
-            where page_title = img_name
-                and cl_from = page_id
-                and cl_to = :cat
-                and page_namespace = 6
-                and ifnull(oi_user_text , img_user_text) = ifnull(:user, ifnull(oi_user_text , img_user_text))
-                order by img_timestamp DESC';
+                SELECT ' . implode(',', $select) . '
+        from page
+        INNER JOIN image ON page_title = img_name
+        INNER JOIN categorylinks ON cl_from = page_id
+        LEFT JOIN oldimage o1 ON oi_name = img_name
+            AND oi_timestamp = (select min(o2.oi_timestamp) from oldimage o2 where o1.oi_name = o2.oi_name)
+        LEFT JOIN actor ON actor_id = ifnull(o1.oi_actor, img_actor)
+        LEFT JOIN user ON user_id = actor_user
+        WHERE page_namespace = 6
+            AND cl_to = :cat
+            AND user_name = ifnull(:user, user_name)
+        ORDER BY img_timestamp DESC';
         return \model\database::instance('commonswiki', 'commonswiki')->exec($qDetails, $options, 50);
     }
 }
