@@ -8,7 +8,7 @@ class archive
     {
         $headers = \Web::instance()->request($array['url'])['headers'];
         $status = !!array_filter($headers, function ($head) {
-            return stripos($head, '200 OK');
+            return stripos($head, '200 OK') !== false || stripos($head, 'HTTP/2 200') !== false;
         });
         $array['status'] = ['http' => $status];
         return $array;
@@ -21,7 +21,7 @@ class archive
             $request = \Web::instance()->request('http://archive.org/wayback/available?url=' . $array['url']);
             $api_archive = json_decode($request['body']);
             $status['archive'] = isset($api_archive->archived_snapshots->closest->timestamp) ?
-            \DateTime::createFromFormat('YmdHis', $api_archive->archived_snapshots->closest->timestamp)
+            date_create_from_format('YmdHis', $api_archive->archived_snapshots->closest->timestamp)
             : false;
         } else {
             $status['archive'] = false;
