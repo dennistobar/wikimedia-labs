@@ -18,7 +18,8 @@ class parsers
 
     public static function mes($mes)
     {
-        $meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+        $meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio'
+            , 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
         return $meses[$mes];
     }
 
