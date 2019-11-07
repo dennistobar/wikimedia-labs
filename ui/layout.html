@@ -6,8 +6,8 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{@BASE}}/css/bulma.min.css" />
+    <link rel="stylesheet" href="{{@BASE}}/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{@BASE}}/css/site.css">
     <title>{{@page.title}}{{is_null(@page.subtitle) ? '' : (': '.@page.subtitle)}}</title>
     {{ \helper\hook::run('head_end') }}
@@ -19,9 +19,9 @@
             <nav class="navbar">
                 <div class="container">
                     <span class="navbar-burger burger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
                     </span>
                     <div class="navbar-menu">
                         <div class="navbar-end">
@@ -59,8 +59,10 @@
     </section>
     <footer class="footer">
         <div class="has-text-centered">
-            <p>Versión <a href="https://github.com/dennistobar/wikimedia-labs/commit/{{@system.git}}">{{@system.git}}</a></p>
-            <a href="https://twitter.com/dennistobar">@dennistobar</a> / <a href="https://github.com/dennistobar">github.com/dennistobar</a>
+            <p>Versión <a
+                    href="https://github.com/dennistobar/wikimedia-labs/commit/{{@system.git}}">{{@system.git}}</a></p>
+            <a href="https://twitter.com/dennistobar">@dennistobar</a> / <a
+                href="https://github.com/dennistobar">github.com/dennistobar</a>
         </div>
     </footer>
     {{ \helper\hook::run('body_end') }}
