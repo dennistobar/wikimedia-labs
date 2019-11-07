@@ -60,8 +60,8 @@ class archive
                 $objetive[]['url'] = $url;
             }
         }
-        $objetive = array_map([self::class, 'checkURL'], $objetive);
         $objetive = array_map([self::class, 'checkArchiveStatus'], $objetive);
+        $objetive = array_map([self::class, 'checkURL'], $objetive);
         return array_map([self::class, 'sendArchive'], $objetive);
     }
 
