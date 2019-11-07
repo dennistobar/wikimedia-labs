@@ -1,25 +1,27 @@
 <h3 class="title">Envío de URL a Internet Archive</h3>
-<h5 class="subtitle">Resultados {{@title | nounderline}}</h5>
+<h5 class="subtitle">Resultados
+    {{@title | nounderline}}</h5>
 <table class="table is-bordered is-striped is-narrow">
     <thead>
         <tr>
             <th>URL</th>
-            <th>Accesible</th>
-            <th>Última actualización<br /><small>Internet Archive</small></th>
-            <th>Enviada a Internet Archive</th>
+            <th>Enviada</th>
+            <th>Mensaje</th>
             <th>Ver en Internet Archive</th>
         </tr>
     </thead>
     <tbody>
         <repeat group="{{@result}}" value="{{@site}}">
             <tr>
-                <td>{{@site.url}}</td>
-                <td>{{@site.status.http ? 'Sí' : 'No'}}</td>
-                <td>{{!!@site.status.archive ? (@site.status.archive->format('d/m/Y H:i:s').'<br />'.@site.status.archive->diff(new \DateTime(), true)->days.' días') : 'Nunca'}}</td>
-                <td>{{@site.status.sent ? 'Sí' : 'No'}}</td>
-                <check if="{{@site.status.sent || @site.status.archive}}">
-                    <td><a href="http://web.archive.org/web/{{@site.url}}" target="_blank">Ver</a></td>
-                </check>
-        </repeat>
+                <td>{{@site[2]}}</td>
+                <td>{{@site[0] ? 'Sí' : 'No'}}</td>
+                <td>{{@site[3]}}</td>
+                <check if="{{@site[1]}}">
+                    <td>
+                        <a href="http://web.archive.org/web/{{@site[2]}}" target="_blank">Ver</a>
+                    </td>
+                </tr>
+            </tr>
+        </check>
     </tbody>
-</table>
+</tr></repeat></tbody></table>
