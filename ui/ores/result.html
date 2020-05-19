@@ -1,0 +1,28 @@
+<h3 class="title">Ediciones de usuario</h3>
+<h5 class="subtitle">Resultados de {{@title | nounderline}}</h5>
+<table class="table is-bordered is-striped is-narrow">
+    <thead>
+        <tr>
+            <th rowspan="2">Página</th>
+            <th rowspan="2">Revisión</th>
+            <th rowspan="2">Timestamp</th>
+            <th colspan="2">Evaluación ORES</th>
+        </tr>
+        <tr>
+            <th>Buena fe</th>
+            <th>Dañina</th>
+        </tr>
+    </thead>
+    <tbody>
+        <repeat group="{{@results}}" value="{{@result}}">
+            <tr>
+                <td>{{@result.title}}</td>
+                <td><a href="https://es.wikipedia.org/wiki/Special:Diff/{{@result.id}}">{{@result.id}}</a></td>
+                <td>{{@result.timestamp}}</td>
+                <td>{{@result.ores->goodfaith->true}}</td>
+                <td>{{@result.ores->damaging->true}}</td>
+            </tr>
+        </repeat>
+    </tbody>
+    </tbody>
+</table>

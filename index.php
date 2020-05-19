@@ -42,6 +42,10 @@ $cron->web = true;
 $fat->route('GET /internet-archive', 'route\archive->index');
 $fat->route('POST /internet-archive/process', 'route\archive->process');
 
+/* ORES */
+$fat->route('GET /ores', 'route\ores->index');
+$fat->route('POST /ores/process', 'route\ores->process');
+
 \helper\formaters::registry();
 
 $fat->run();
