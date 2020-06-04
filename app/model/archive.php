@@ -2,12 +2,18 @@
 
 namespace model;
 
+use helper\api;
+
 class archive
 {
-    public static function processArticle($title, $wiki = 'es.wikipedia.org')
+    /**
+     * Procesa un artículo y lo sube a Internet Archive
+     */
+    public static function processArticle(string $title, string $wiki = 'es.wikipedia.org'): array
     {
         $objetive = [];
-        $data = \helper\api::get(["action" => "query", "prop" => "extlinks", "ellimit" => "max", 'titles' => $title], $wiki);
+        $parameters = ["action" => "query", "prop" => "extlinks", "ellimit" => "max", 'titles' => $title];
+        $data = api::get($parameters, $wiki);
 
         $pages = new \ArrayObject($data->query->pages);
         foreach ($pages as $page) {

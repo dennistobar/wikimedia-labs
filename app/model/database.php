@@ -6,14 +6,20 @@ class database extends \DB\SQL
 {
     protected static $instance = [];
 
-    public function __construct($f3, $server = 'commonswiki', $database = 'commonswiki')
+    /**
+     * Constructor de clase
+     */
+    public function __construct(\Base $f3, string $server = 'commonswiki', string $database = 'commonswiki')
     {
         $database = stripos($database, 'wiki') !== false ? $database . '_p' : $database;
         $dns = sprintf('mysql:host=%s.labsdb;dbname=%s', $server, $database);
         parent::__construct($dns, $f3->get('db.user'), $f3->get('db.password'));
     }
 
-    public static function instance($server, $database)
+    /**
+     * Obtiene la instancia a partir del servidor y base de datos
+     */
+    public static function instance(string $server, string $database): \DB\SQL
     {
         if (is_null(self::$instance[md5($server . $database)])) {
             $database = stripos($database, 'wiki') !== false ? $database . '_p' : $database;
@@ -29,8 +35,8 @@ class database extends \DB\SQL
     {
         if (stripos(\F3::get('HOST'), 'wmflabs.org') !== false) {
             return 3306;
-        } else {
-            return $server === 'tools' ? 4712 : 4711;
         }
+
+        return $server === 'tools' ? 4712 : 4711;
     }
 }

@@ -32,7 +32,7 @@ class Url
      * Constructor de clase en factory
      *
      * @param string $url
-     * @return void
+     * @return self
      */
     public static function create(string $url)
     {
