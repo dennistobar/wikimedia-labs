@@ -1,16 +1,17 @@
-<h3 class="title">Users in category</h3>
-<form method="post" action="./commons/category">
+<h3 class="title">Usuarios en Categoría</h3>
+<form method="post" action="{{@BASE}}/commons/category">
     <div class="field is-horizontal">
         <div class="field-label is-normal">
-            <label class="label">Category</label>
+            <label class="label">Categoría</label>
         </div>
         <div class="field-body">
             <div class="field is-expanded">
                 <div class="control">
-                    <input type="text" class="input" name="category" placeholder="ie: Chile, Wines, Images from some contest..." required="required" />
+                    <input type="text" class="input" name="category"
+                        placeholder="ejemplos: Chile, Wines, Images from some contest..." required="required" />
                 </div>
                 <p class="help">
-                    Without <strong>Category:</strong>
+                    Sin el prefijo <strong>Category:</strong>
                 </p>
             </div>
         </div>
@@ -22,7 +23,7 @@
         <div class="field-body">
             <div class="field">
                 <div class="control">
-                    <button class="button is-primary">Search</button>
+                    <button class="button is-primary">Buscar</button>
                 </div>
             </div>
         </div>
