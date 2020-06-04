@@ -33,7 +33,7 @@ class database extends \DB\SQL
     /* Ok, terrible hack, but one connection per port in develop is so... 8) */
     public static function setMyPort($server)
     {
-        if (stripos(\F3::get('HOST'), 'wmflabs.org') !== false) {
+        if (stripos(\F3::get('HOST'), 'wmflabs.org') !== false || stripos(\F3::get('HOST'), 'toolforge') !== false) {
             return 3306;
         }
 
