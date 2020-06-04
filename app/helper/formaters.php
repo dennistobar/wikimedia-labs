@@ -37,8 +37,8 @@ class formaters extends \Prefab
     {
         $sizes = ['', 'K', 'M', 'G', 'T'];
         $size = (int) $string;
-        for ($i = 1; ($size_return = $size / pow(1024, $i + 1)) > 1; $i++);
-        return round($size_return * 1024, 2) . ' ' . $sizes[$i] . 'B';
+        for ($i = 1; ($sizeReturn = $size / pow(1024, $i + 1)) > 1; $i++);
+        return round($sizeReturn * 1024, 2) . ' ' . $sizes[$i] . 'B';
     }
 
     public function number($string)

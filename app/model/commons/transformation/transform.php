@@ -12,27 +12,29 @@ class transform
         $this->array = $array;
     }
 
-    public function addTransform(Icommand $Command)
+    public function addTransform(Icommand $command)
     {
-        $this->transform[] = $Command;
+        $this->transform[] = $command;
     }
 
     public function execute()
     {
-        foreach ($this->transform as $Command) {
-            $this->array = $Command->execute($this->array);
+        foreach ($this->transform as $command) {
+            $this->array = $command->execute($this->array);
         }
+
         return $this->array;
     }
 
-    public static function create($array, $Commands = [])
+    public static function create($array, $commands = [])
     {
-        $Self = new self($array);
-        foreach ($Commands as $Command) {
-            if ($Command instanceof Icommand) {
-                $Self->addTransform($Command);
+        $self = new self($array);
+        foreach ($commands as $command) {
+            if ($command instanceof Icommand) {
+                $self->addTransform($command);
             }
         }
-        return $Self->execute();
+
+        return $self->execute();
     }
 }

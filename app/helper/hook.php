@@ -6,9 +6,9 @@ class hook
 {
     private static $hooks = [];
 
-    public static function add($hook, $fn, $args = [])
+    public static function add($hook, $function, $args = [])
     {
-        self::$hooks[$hook][] = [$fn, $args];
+        self::$hooks[$hook][] = [$function, $args];
     }
 
     public static function run($hook)
@@ -19,6 +19,5 @@ class hook
         foreach (self::$hooks[$hook] as $el) {
             call_user_func($el[0], $el[1]);
         }
-        return;
     }
 }

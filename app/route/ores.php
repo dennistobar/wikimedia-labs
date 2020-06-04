@@ -2,6 +2,8 @@
 
 namespace route;
 
+use model\OresModel;
+
 class ores extends main
 {
     public function index(\Base $fat)
@@ -12,7 +14,7 @@ class ores extends main
     public function process(\Base $fat)
     {
         $username = $fat->get('POST.username');
-        $results = \model\ores::getArticles($username, 'es.wikipedia.org');
+        $results = OresModel::getArticles($username, 'es.wikipedia.org');
 
         $fat->mset(['results' => $results, 'title' => $username]);
         $fat->set('page.contents', 'ores/result.html');

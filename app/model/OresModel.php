@@ -2,13 +2,20 @@
 
 namespace model;
 
-class ores
-{
+use helper\ApiHelper;
 
-    public static function getArticles(string $user, $wiki = 'es.wikipedia.org')
+class OresModel
+{
+    /**
+     * Obtiene los artículos en función del usuario wiki
+     *
+     * @return mixed
+     */
+    public static function getArticles(string $user, string $wiki = 'es.wikipedia.org'): array
     {
-        $data = \helper\api::get(["action" => "query", "list" => "allrevisions",
-            "arvprop" => "timestamp|oresscores|ids", 'arvuser' => $user, 'arvnamespace' => 0, 'arvlimit' => 50], $wiki);
+        $parameters = ["action" => "query", "list" => "allrevisions",
+            "arvprop" => "timestamp|oresscores|ids", 'arvuser' => $user, 'arvnamespace' => 0, 'arvlimit' => 50];
+        $data = ApiHelper::createFromArray($parameters, $wiki)->getResults();
         $revisions = [];
         foreach (new \ArrayObject($data->query->allrevisions) as $revision) {
             foreach ($revision->revisions as $minorRevision) {
@@ -20,6 +27,7 @@ class ores
             }
         }
         array_multisort(array_column($revisions, 'timestamp'), SORT_DESC, $revisions);
+
         return $revisions;
     }
 }

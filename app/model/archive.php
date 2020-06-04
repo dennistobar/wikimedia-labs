@@ -2,7 +2,7 @@
 
 namespace model;
 
-use helper\api;
+use helper\ApiHelper;
 
 class archive
 {
@@ -13,7 +13,7 @@ class archive
     {
         $objetive = [];
         $parameters = ["action" => "query", "prop" => "extlinks", "ellimit" => "max", 'titles' => $title];
-        $data = api::get($parameters, $wiki);
+        $data = ApiHelper::createFromArray($parameters, $wiki)->getResults();
 
         $pages = new \ArrayObject($data->query->pages);
         foreach ($pages as $page) {
