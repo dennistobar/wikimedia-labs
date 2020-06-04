@@ -2,7 +2,7 @@
 
 namespace route;
 
-class main
+class MainRoute
 {
     public function afterroute(\Base $fat)
     {

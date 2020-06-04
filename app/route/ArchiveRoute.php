@@ -2,7 +2,7 @@
 
 namespace route;
 
-class archive extends main
+class ArchiveRoute extends MainRoute
 {
     public function index(\Base $fat)
     {

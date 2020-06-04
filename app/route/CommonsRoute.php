@@ -4,7 +4,7 @@ namespace route;
 
 use \model\commons\search;
 
-class commons extends main
+class CommonsRoute extends MainRoute
 {
     public function index(\Base $fat)
     {

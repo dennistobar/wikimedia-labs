@@ -10,19 +10,19 @@ $fat->config('../fatfree.my.cnf');
 $fat->set('system.git', exec('git rev-parse --short HEAD'));
 
 /* Commons */
-$fat->route('GET /commons', 'route\commons->index');
-$fat->route('GET /commons/category', 'route\commons->search');
-$fat->route('GET /commons/category/@category/@user', 'route\commons->search');
-$fat->route('GET /commons/category/@category', 'route\commons->search');
-$fat->route('POST /commons/category', 'route\commons->category_redirect');
+$fat->route('GET /commons', 'route\CommonsRoute->index');
+$fat->route('GET /commons/category', 'route\CommonsRoute->search');
+$fat->route('GET /commons/category/@category/@user', 'route\CommonsRoute->search');
+$fat->route('GET /commons/category/@category', 'route\CommonsRoute->search');
+$fat->route('POST /commons/category', 'route\CommonsRoute->category_redirect');
 
 /* Internet Archive */
-$fat->route('GET /internet-archive', 'route\archive->index');
-$fat->route('POST /internet-archive/process', 'route\archive->process');
+$fat->route('GET /internet-archive', 'route\ArchiveRoute->index');
+$fat->route('POST /internet-archive/process', 'route\ArchiveRoute->process');
 
 /* ORES */
-$fat->route('GET /ores', 'route\ores->index');
-$fat->route('POST /ores/process', 'route\ores->process');
+$fat->route('GET /ores', 'route\OresRoute->index');
+$fat->route('POST /ores/process', 'route\OresRoute->process');
 
 \helper\formaters::registry();
 

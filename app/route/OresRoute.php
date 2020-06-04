@@ -4,7 +4,7 @@ namespace route;
 
 use model\OresModel;
 
-class ores extends main
+class OresRoute extends MainRoute
 {
     public function index(\Base $fat)
     {
