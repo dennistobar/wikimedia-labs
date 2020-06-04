@@ -3,9 +3,6 @@
 namespace route;
 
 use function GuzzleHttp\json_encode;
-use helper\Entity;
-use model\mujer\mujeres;
-use model\mujer\origin;
 
 class cron
 {
@@ -74,48 +71,5 @@ class cron
             $pCategoria->copyFrom($params);
             $pCategoria->save();
         }
-    }
-
-    public static function cronMujeres()
-    {
-        $dest = \model\database::instance('tools', \F3::get('db.user') . '__desafio');
-        $origen = new origin;
-        $mujeres = new mujeres;
-        $origen->setParameters('20190301000000', '20190408000000');
-        $changes = $origen->getData(null);
-
-        $inserted = 0;
-        foreach ($changes as $change) {
-            $mujer = $mujeres->load(['page_id = ' . $change['page_id']]);
-            if (!!$mujer === true) {
-                $mujer->wikidata_item = $change['wikidata_item'];
-            } else {
-                $mujer = new mujeres;
-                $mujer->wikidata_item = $change['wikidata_item'];
-                $mujer->page_id = $change['page_id'];
-            }
-            $mujer->save();
-            $inserted++;
-        }
-
-        header('Content-type: application/json');
-        echo json_encode(['inserted' => $inserted]);
-    }
-
-    public static function populateMujeres()
-    {
-        $mujeres = mujeres::getWihtoutCitizenship();
-        $wikidata = new Entity;
-        $changed = 0;
-        foreach ($mujeres as $mujer) {
-            $property = $wikidata->getCitizenship($mujer->wikidata_item);
-            if (!!$property) {
-                $mujer->country = $property;
-            }
-            $changed += (int) $mujer->changed();
-            $mujer->changed() ? $mujer->update() : '';
-        }
-        header('Content-type: application/json');
-        echo json_encode(['selected' => count($mujeres), 'changed' => $changed]);
     }
 }
