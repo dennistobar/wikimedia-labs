@@ -4,7 +4,7 @@ namespace model;
 
 use helper\ApiHelper;
 
-class archive
+class ArchiveModel
 {
     /**
      * Procesa un artículo y lo sube a Internet Archive
@@ -21,7 +21,7 @@ class archive
             foreach ($links as $link) {
                 $url = $link->{'*'};
                 try {
-                    $objetive[] = Url::create($url)->sendArchive();
+                    $objetive[] = UrlModel::create($url)->sendArchive();
                 } catch (\Exception $e) {
                     continue;
                 }

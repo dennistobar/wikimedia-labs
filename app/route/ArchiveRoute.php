@@ -2,6 +2,8 @@
 
 namespace route;
 
+use model\ArchiveModel;
+
 class ArchiveRoute extends MainRoute
 {
     public function index(\Base $fat)
@@ -12,7 +14,7 @@ class ArchiveRoute extends MainRoute
     public function process(\Base $fat)
     {
         $title = $fat->get('POST.article');
-        $result = \model\archive::processArticle($title, 'es.wikipedia.org');
+        $result = ArchiveModel::processArticle($title, 'es.wikipedia.org');
         $fat->mset(['result' => $result, 'title' => $title]);
         $fat->set('page.contents', 'archive/result.html');
     }

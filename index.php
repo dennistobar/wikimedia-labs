@@ -14,7 +14,7 @@ $fat->route('GET /commons', 'route\CommonsRoute->index');
 $fat->route('GET /commons/category', 'route\CommonsRoute->search');
 $fat->route('GET /commons/category/@category/@user', 'route\CommonsRoute->search');
 $fat->route('GET /commons/category/@category', 'route\CommonsRoute->search');
-$fat->route('POST /commons/category', 'route\CommonsRoute->category_redirect');
+$fat->route('POST /commons/category', 'route\CommonsRoute->categoryRedirect');
 
 /* Internet Archive */
 $fat->route('GET /internet-archive', 'route\ArchiveRoute->index');

@@ -4,7 +4,7 @@ namespace model;
 
 use DateTime;
 
-class Url
+class UrlModel
 {
 
     const MIN_DAYS = 100;
@@ -14,8 +14,6 @@ class Url
 
     /**
      * Constructor de clase
-     *
-     * @param string $url
      */
     public function __construct(string $url)
     {
@@ -58,8 +56,6 @@ class Url
 
     /**
      * Chequea si el enlace es Wikidata
-     *
-     * @return boolean
      */
     private function isWikidata(): bool
     {
@@ -68,14 +64,15 @@ class Url
 
     /**
      * Chequea el enlace si es Internet Archive
-     *
-     * @return boolean
      */
     private function isInternetAchive(): bool
     {
         return stripos($this->url, 'web.archive.org/web/') !== false;
     }
 
+    /**
+     * Chequea el estado de Internet Archive
+     */
     private function checkArchiveStatus()
     {
         $request = \Web::instance()->request('http://archive.org/wayback/available?url=' . $this->url);
@@ -89,6 +86,9 @@ class Url
         $this->setStatus('archive', $date->diff(new DateTime())->days > self::MIN_DAYS);
     }
 
+    /**
+     * Chequea el estado de la URL
+     */
     private function checkUrlStatus()
     {
         $headers = \Web::instance()->request($this->url)['headers'];
@@ -98,6 +98,9 @@ class Url
         $this->setStatus('http', $statusURL);
     }
 
+    /**
+     * Sube el archivo a Internet Archive
+     */
     private function uploadArchive()
     {
         $headers = \Web::instance()->request('http://web.archive.org/save/' . $this->url)['headers'];
@@ -109,10 +112,6 @@ class Url
 
     /**
      * Setea el estado de una comprobación
-     *
-     * @param string $key
-     * @param boolean $value
-     * @return void
      */
     private function setStatus(string $key, bool $value)
     {
@@ -121,9 +120,6 @@ class Url
 
     /**
      * Obtiene el estado de una comprobación. Si no existe la comprobación, asume falso
-     *
-     * @param string $key
-     * @return boolean
      */
     private function getStatus(string $key): bool
     {

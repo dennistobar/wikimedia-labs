@@ -24,7 +24,7 @@ class CommonsRoute extends MainRoute
         $fat->set('category', ['name' => $options['cat'], 'search' => $options['cat'], 'user' => $options['user']]);
     }
 
-    public function category_redirect(\Base $fat)
+    public function categoryRedirect(\Base $fat)
     {
         $cat = str_replace(" ", "_", $fat->get('POST.category'));
         $base = sprintf("%s://%s%s", $fat->get('SCHEME'), $fat->get('HOST'), $fat->get('BASE'));
