@@ -3,7 +3,7 @@
     <thead>
         <th>#</th>
         <th>Nombre y fecha</th>
-        <th width="300">Miniatura</th>
+        <th>Miniatura</th>
         <th>Data</th>
     </thead>
     <tbody>
@@ -13,10 +13,12 @@
                 <td>{{ @row.img_name | nounderline }}<br />{{ @row.img_timestamp | american_time }}</td>
                 <td>
                     <a href="https://commons.wikimedia.org/wiki/File:{{ @row.url  }}" target="_blank">
-                        <img src="{{ @row.commons | raw }}">
+                        <img src="{{ @row.commons | raw }}" loading="lazy" alt="{{ @row.image }}">
                     </a>
-                    <em>Ver en <a href="https://commons.wikimedia.org/wiki/File:{{ @row.url | raw }}"
-                            target="_blank">Wikimedia Commons</a></em>
+                    <em>
+                        Ver en <a href="https://commons.wikimedia.org/wiki/File:{{ @row.url | raw }}"
+                            target="_blank">Wikimedia Commons</a>
+                    </em>
                 </td>
                 <td>
                     <ul>
