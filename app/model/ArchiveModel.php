@@ -14,7 +14,6 @@ class ArchiveModel
         $objetive = [];
         $parameters = ["action" => "query", "prop" => "extlinks", "ellimit" => "max", 'titles' => $title];
         $data = ApiHelper::createFromArray($parameters, $wiki)->getResults();
-
         $pages = new \ArrayObject($data->query->pages);
         foreach ($pages as $page) {
             $links = new \ArrayObject($page->extlinks);

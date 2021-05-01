@@ -3,6 +3,7 @@
 namespace model;
 
 use helper\ApiHelper;
+use helper\OresHelper;
 
 class OresModel
 {
@@ -29,5 +30,12 @@ class OresModel
         array_multisort(array_column($revisions, 'timestamp'), SORT_DESC, $revisions);
 
         return $revisions;
+    }
+
+    public static function getFromRevId(int $revId, string $wiki = 'eswiki'): array
+    {
+        $data = OresHelper::createFromRevId($revId, $wiki)->getResults();
+
+        return [];
     }
 }

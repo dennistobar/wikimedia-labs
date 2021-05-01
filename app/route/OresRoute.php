@@ -20,6 +20,12 @@ class OresRoute extends MainRoute
         $fat->set('page.contents', 'ores/result.html');
     }
 
+    public function getFromRevId(\Base $fat)
+    {
+        $revId = $fat->get('PARAMS.revid');
+        $results = OresModel::getFromRevId($revId, 'eswiki');
+    }
+
     public function beforeroute(\Base $fat)
     {
         $fat->set('page.title', 'Comprobar ediciones en ORES');

@@ -23,6 +23,7 @@ $fat->route('POST /internet-archive/process', 'route\ArchiveRoute->process');
 /* ORES */
 $fat->route('GET /ores', 'route\OresRoute->index');
 $fat->route('POST /ores/process', 'route\OresRoute->process');
+$fat->route('GET /ores/revid/@revid', 'route\OresRoute->getFromRevId');
 
 \helper\formaters::registry();
 

@@ -1,9 +1,10 @@
 {
     "require": {
         "bcosca/fatfree": "^3.6",
-        "xfra35/f3-cron": "^1.1",
-        "phan/phan": "^1.2",
-        "freearhey/wikidata": "^3.0"
+        "xfra35/f3-cron": "^1.1"
+    },
+    "require-dev": {
+        "phan/phan": "^1.2"
     },
     "autoload": {
         "psr-0": {
