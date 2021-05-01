@@ -2,6 +2,7 @@
 
 namespace model;
 
+use ArrayObject;
 use helper\ApiHelper;
 use helper\OresHelper;
 
@@ -14,14 +15,18 @@ class OresModel
      */
     public static function getArticles(string $user, string $wiki = 'es.wikipedia.org'): array
     {
-        $parameters = ["action" => "query", "list" => "allrevisions",
-            "arvprop" => "timestamp|oresscores|ids", 'arvuser' => $user, 'arvnamespace' => 0, 'arvlimit' => 50];
+        $parameters = [
+            "action" => "query", "list" => "allrevisions",
+            "arvprop" => "timestamp|oresscores|ids", 'arvuser' => $user, 'arvnamespace' => 0, 'arvlimit' => 50
+        ];
         $data = ApiHelper::createFromArray($parameters, $wiki)->getResults();
         $revisions = [];
-        foreach (new \ArrayObject($data->query->allrevisions) as $revision) {
+        foreach (new ArrayObject($data->query->allrevisions) as $revision) {
             foreach ($revision->revisions as $minorRevision) {
-                $localRevision = ['id' => $minorRevision->revid, 'title' => $revision->title,
-                    'timestamp' => $minorRevision->timestamp, 'ores' => $minorRevision->oresscores];
+                $localRevision = [
+                    'id' => $minorRevision->revid, 'title' => $revision->title,
+                    'timestamp' => $minorRevision->timestamp, 'ores' => $minorRevision->oresscores
+                ];
                 if (empty($minorRevision->oresscores) === false) {
                     array_push($revisions, $localRevision);
                 }
